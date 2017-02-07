@@ -1,1 +1,25 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>mazs test</title>
+</head>
+<body>
+	<div id="achievement-template" style="display: none;">
+		<div class="achievement-container">
+			<img ::icon:: class="icon">
+			<p class="title">::title::</p>
+		</div>
+	</div>
+
+	<div id="fractal-tiers"></div>
+	<div id="fractal-recommended"></div>
+
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script src="mazs.js"></script>
+	<script>
+		Mazs.getFractals();
+	</script>
+</body>
+</html>
