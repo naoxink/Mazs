@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>mazs test</title>
+	<link rel="stylesheet" href="mazs.css">
 </head>
 <body>
 	<div id="achievement-template" style="display: none;">
@@ -19,6 +19,9 @@
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<script src="mazs.js"></script>
 	<script>
+		if(window.location.href.indexOf('lang=')){
+			Mazs.setLanguage(window.location.href.split('lang=')[1])
+		}
 		Mazs.getFractals();
 	</script>
 </body>
