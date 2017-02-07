@@ -72,15 +72,58 @@
 	}
 
 	mazs.print = function(section, data){
-		$(section).append(
-			this.achievementTemplate
+		var html = this.achievementTemplate
 				.replace('::icon::', 'src="' + data.icon + '"')
 				.replace('::title::', data.name)
-		)
+		if(data.bits){
+			// Formatear
+			var bitsStr = ''
+			for(var tier in data.bits){
+				bitsStr += '<span class="tier">' + data.bits[tier].join(', ') + '</span>'
+			}
+			html = html.replace('::bits::', '<small>' + bitsStr + '</small>')
+		}else{
+			html = html.replace('::bits::', '')
+		}
+		$(section).append(html)
 	}
 
 	mazs.isMaxTier = function(fractal){
 		return fractal.name.indexOf('4') !== -1
+	}
+
+	mazs.isMinTier = function(fractal){
+		return fractal.name.indexOf('1') !== -1
+	}
+
+	mazs.getFractalNumbers = function(fractal){
+		return fractal.bits.map(function(bit){ return bit.text.replace(/\D/ig, '') }).join(', ')
+	}
+
+	mazs.groupByTier = function(fractal){
+		var bits = {
+			't1': [  ],
+			't2': [  ],
+			't3': [  ],
+			't4': [  ]
+		}
+		for(var i = 0, len = fractal.bits.length; i < len; i++){
+			var bit = parseInt(fractal.bits[i].text.replace(/\D/ig, ''), 10)
+			if(bit <= 25){
+				bits.t1.push(bit)
+			}else if(bit > 25 && bit <= 50){
+				bits.t2.push(bit)
+			}else if(bit > 50 && bit <= 75){
+				bits.t3.push(bit)
+			}else if(bit > 75 && bit <= 100){
+				bits.t4.push(bit)
+			}
+		}
+		bits.t1.reverse()
+		bits.t2.reverse()
+		bits.t3.reverse()
+		bits.t4.reverse()
+		return bits
 	}
 
 	// Listado de logros de fractales (diarios)
@@ -91,10 +134,16 @@
 			_this.getFractalInfo(data.achievements, function(details){
 				$('#fractal-tiers').html('').append('<h3>' + _this.headers.fractalTiers[_this.lang] + '</h3>')
 				$('#fractal-recommended').html('').append('<h3>' + _this.headers.fractalRecommended[_this.lang] + '</h3>')
+				var bits = null
 				for (var i = 0, len = details.length; i < len; i++) {
-					if(!_this.isRecommended(details[i]) && _this.isMaxTier(details[i])){
-						details[i].name = details[i].name.replace(_this.regexs[_this.lang], '')
-						_this.print('#fractal-tiers', details[i])
+					if(!_this.isRecommended(details[i])){
+						if(_this.isMaxTier(details[i])){
+							details[i].name = details[i].name.replace(_this.regexs[_this.lang], '')
+							details[i].bits = bits
+							_this.print('#fractal-tiers', details[i])
+						}else if(_this.isMinTier(details[i])){
+							bits = _this.groupByTier(details[i])
+						}
 					}else if(_this.isRecommended(details[i])){
 						_this.print('#fractal-recommended', details[i])
 					}
