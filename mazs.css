@@ -1,0 +1,19 @@
+body {
+	font-family: sans-serif;
+}
+.achievement-container {
+	padding: 15px;
+	background-color: #F9F3FF;
+	width: 400px;
+	overflow: hidden;
+	margin: 5px;
+	border: 1px solid rgba(0, 0, 0, .1);
+}
+.achievement-container > .icon,
+.achievement-container > .title {
+	float: left;
+}
+.achievement-container > .icon {
+	height: 50px;
+	margin-right: 10px;
+}
