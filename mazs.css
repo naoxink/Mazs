@@ -9,6 +9,23 @@ body {
 	margin: 5px;
 	border: 1px solid rgba(0, 0, 0, .1);
 }
+.achievement-container > small {
+	float: left;
+	width: 430px;
+	margin-left: -15px;
+	margin-bottom: -15px;
+	background-color: rgba(0, 0, 0, .1);
+}
+.achievement-container > small > .tier {
+	display: inline-block;
+	border: 1px solid rgba(0, 0, 0, .1);
+	margin: 0px -1px -1px -1px;
+	padding: 10px 0;
+	width: 25%;
+	text-align: center;
+	font-weight: bold;
+	color: #230046;
+}
 .achievement-container > .icon,
 .achievement-container > .title {
 	float: left;
