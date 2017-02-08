@@ -71,35 +71,41 @@
 		return fractal.name.toLowerCase().indexOf(this.keywords[this.lang]) !== -1
 	}
 
+	// Fomatea (HTML) los niveles de fractales (::bits::)
+	mazs.formatBits = function(bits){
+		if(!bits){ return '' }
+		var bitsStr = ''
+		for(var tier in bits){
+			bitsStr += '<span class="tier">' + bits[tier].join(', ') + '</span>'
+		}
+		return '<small>' + bitsStr + '</small>'
+	}
+
+	// Pinta (HTML) una caja de logro
 	mazs.print = function(section, data){
 		var html = this.achievementTemplate
 				.replace('::icon::', 'src="' + data.icon + '"')
 				.replace('::title::', data.name)
-		if(data.bits){
-			// Formatear
-			var bitsStr = ''
-			for(var tier in data.bits){
-				bitsStr += '<span class="tier">' + data.bits[tier].join(', ') + '</span>'
-			}
-			html = html.replace('::bits::', '<small>' + bitsStr + '</small>')
-		}else{
-			html = html.replace('::bits::', '')
-		}
+				.replace('::bits::', mazs.formatBits(data.bits))
 		$(section).append(html)
 	}
 
+	// Comprueba que un fractal es tier máximo (4)
 	mazs.isMaxTier = function(fractal){
 		return fractal.name.indexOf('4') !== -1
 	}
 
+	// Comprueba que un fractal es tier mínimo (1)
 	mazs.isMinTier = function(fractal){
 		return fractal.name.indexOf('1') !== -1
 	}
 
+	// Transforma los textos de los bits (niveles) en sólo el número
 	mazs.getFractalNumbers = function(fractal){
 		return fractal.bits.map(function(bit){ return bit.text.replace(/\D/ig, '') }).join(', ')
 	}
 
+	// Agrupa los bits por tiers (t1, t2, t3, t4)
 	mazs.groupByTier = function(fractal){
 		var bits = {
 			't1': [  ],
@@ -133,8 +139,8 @@
 		var recommendedIDs = [  ]
 		this.getData(this.urls.FRACTALS_LIST, function(data){
 			_this.getFractalInfo(data.achievements, function(details){
-				$('#fractal-tiers').html('').append('<h3>' + _this.headers.fractalTiers[_this.lang] + '</h3>')
-				$('#fractal-recommended').html('').append('<h3>' + _this.headers.fractalRecommended[_this.lang] + '</h3>')
+				$('#fractal-tiers').html('').append('<h3 class="section-title">' + _this.headers.fractalTiers[_this.lang] + '</h3>')
+				$('#fractal-recommended').html('').append('<h3 class="section-title">' + _this.headers.fractalRecommended[_this.lang] + '</h3>')
 				for (var i = 0, len = details.length; i < len; i++) {
 					if(!_this.isRecommended(details[i]) && _this.isMinTier(details[i])){
 						details[i].name = details[i].name.replace(_this.regexs[_this.lang], '')
