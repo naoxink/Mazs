@@ -14,9 +14,9 @@
 			'de': 'empfohlenes'
 		},
 		'regexs': {
-			'en': /Daily Tier 4/i,
-			'es': /de rango 4 del día/i,
-			'de': /(^Täglicher Abschluss: |, Rang 4$)/gi
+			'en': /Daily Tier [1-4]/i,
+			'es': /de rango [1-4] del día/i,
+			'de': /(^Täglicher Abschluss: |, Rang [1-4]$)/gi
 		},
 		'headers': {
 			'fractalTiers': {
@@ -130,21 +130,19 @@
 	mazs.getFractals = function(callback){
 		callback = callback || this.noop
 		var _this = this
+		var recommendedIDs = [  ]
 		this.getData(this.urls.FRACTALS_LIST, function(data){
 			_this.getFractalInfo(data.achievements, function(details){
 				$('#fractal-tiers').html('').append('<h3>' + _this.headers.fractalTiers[_this.lang] + '</h3>')
 				$('#fractal-recommended').html('').append('<h3>' + _this.headers.fractalRecommended[_this.lang] + '</h3>')
-				var bits = null
 				for (var i = 0, len = details.length; i < len; i++) {
-					if(!_this.isRecommended(details[i])){
-						if(_this.isMaxTier(details[i])){
-							details[i].name = details[i].name.replace(_this.regexs[_this.lang], '')
-							details[i].bits = bits
-							_this.print('#fractal-tiers', details[i])
-						}else if(_this.isMinTier(details[i])){
-							bits = _this.groupByTier(details[i])
-						}
+					if(!_this.isRecommended(details[i]) && _this.isMinTier(details[i])){
+						details[i].name = details[i].name.replace(_this.regexs[_this.lang], '')
+						details[i].bits = _this.groupByTier(details[i])
+						_this.print('#fractal-tiers', details[i])
 					}else if(_this.isRecommended(details[i])){
+						details[i].name = details[i].name
+										+ '<br><small>' + fractalNames[_this.lang][details[i].name.replace(/\D/ig, '')] + '</small>'
 						_this.print('#fractal-recommended', details[i])
 					}
 				}
