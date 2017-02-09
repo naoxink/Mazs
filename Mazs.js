@@ -30,6 +30,18 @@
 				'de': 'Fractals Empfohlen'
 			}
 		},
+		'unwantedtext': {
+			'no': {
+				'es': 'No deseado',
+				'en': 'Not wanted',
+				'de': 'Unerwünscht'
+			},
+			'yes': {
+				'es': 'Deseado',
+				'en': 'Wanted',
+				'de': 'Erwünscht'
+			}
+		},
 		'noop': function(){  },
 		'achievementTemplate': $('#achievement-template').html()
 	}
@@ -86,7 +98,19 @@
 		var html = this.achievementTemplate
 				.replace('::icon::', 'src="' + data.icon + '"')
 				.replace('::title::', data.name)
-				.replace('::bits::', mazs.formatBits(data.bits))
+				.replace('::bits::', mazs.formatBits(data.bitsByTier))
+				.replace('::fractal-id::', data.id)
+		if(mazs.isUnwanted(data.id)){
+			html = html
+					.replace('::class::', 'unwanted')
+					.replace('::unwanted-text::', mazs.unwantedtext.no[this.lang])
+					.replace('::class-unwanted::', 'no')
+		}else{
+			html = html
+					.replace('::class::', '')
+					.replace('::unwanted-text::', mazs.unwantedtext.yes[this.lang])
+					.replace('::class-unwanted::', 'yes')
+		}
 		$(section).append(html)
 	}
 
@@ -144,7 +168,7 @@
 				for (var i = 0, len = details.length; i < len; i++) {
 					if(!_this.isRecommended(details[i]) && _this.isMinTier(details[i])){
 						details[i].name = details[i].name.replace(_this.regexs[_this.lang], '')
-						details[i].bits = _this.groupByTier(details[i])
+						details[i].bitsByTier = _this.groupByTier(details[i])
 						_this.print('#fractal-tiers', details[i])
 					}else if(_this.isRecommended(details[i])){
 						details[i].name = details[i].name
@@ -157,6 +181,32 @@
 		})
 		return this
 	}
+
+	// Marca un fractal como 'No deseado'
+	mazs.toggleWanted = function(element){
+		var fractalID = $(this).parents('.achievement-container').data('fractalid')
+		if(!fractalID){
+			return false
+		}
+		var key = 'fractal-unwanted-' + fractalID
+		if(localStorage.getItem(key)){
+			localStorage.removeItem(key)
+			$(this).parents('.achievement-container').removeClass('unwanted')
+			$(this).removeClass('no').addClass('yes').text(mazs.unwantedtext.yes[mazs.lang])
+		}else{
+			localStorage.setItem(key, true)
+			$(this).parents('.achievement-container').addClass('unwanted')
+			$(this).removeClass('yes').addClass('no').text(mazs.unwantedtext.no[mazs.lang])
+		}
+	}
+
+	// Indica si un fractal es 'No deseado'
+	mazs.isUnwanted = function(fractalID){
+		var key = 'fractal-unwanted-' + fractalID
+		return localStorage.getItem(key) !== null
+	}
+
+	$(document).on('click', '.toggle-unwanted', mazs.toggleWanted)
 
 	window.Mazs = mazs
 })()
