@@ -60,6 +60,11 @@ body {
 	text-align: center;
 	font-weight: bold;
 	color: #230046;
+	cursor: pointer;
+}
+.achievement-container > small > .tier.done {
+	background-color: #EDFFDA;
+	color: #366539;
 }
 .achievement-container > .icon,
 .achievement-container > .title {
