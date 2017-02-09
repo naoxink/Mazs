@@ -7,7 +7,8 @@
 </head>
 <body>
 	<div id="achievement-template" style="display: none;">
-		<div class="achievement-container">
+		<div class="achievement-container ::class::" data-fractalid="::fractal-id::">
+			<span class="toggle-unwanted ::class-unwanted::">::unwanted-text::</span>
 			<img ::icon:: class="icon">
 			<p class="title">::title::</p>
 			::bits::
@@ -23,7 +24,7 @@
 	<script src="fractals.js"></script>
 	<script src="mazs.js"></script>
 	<script>
-		if(window.location.href.indexOf('lang=')){
+		if(window.location.href.indexOf('lang=') !== -1){
 			Mazs.setLanguage(window.location.href.split('lang=')[1])
 		}
 		Mazs.getFractals();
