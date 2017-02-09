@@ -84,11 +84,24 @@
 	}
 
 	// Fomatea (HTML) los niveles de fractales (::bits::)
-	mazs.formatBits = function(bits){
+	mazs.formatBits = function(fractalID, bits){
 		if(!bits){ return '' }
 		var bitsStr = ''
 		for(var tier in bits){
-			bitsStr += '<span class="tier">' + bits[tier].join(', ') + '</span>'
+			var bitClass = ''
+			var done = localStorage.getItem('fractal-tier-done-' + fractalID)
+			if(done){
+				var doneSplitted = done.split('][')
+				var today = new Date()
+				if(parseInt(tier.replace('t', ''), 10) <= parseInt(doneSplitted[0], 10)){
+					if(new Date(doneSplitted[1]).getDay() > today.getDay() && today.getHours() > 1){
+						localStorage.removeItem('fractal-tier-done-' + fractalID)
+					}else{
+						bitClass = 'done'
+					}
+				}
+			}
+			bitsStr += '<span class="tier ' + bitClass + '">' + bits[tier].join(', ') + '</span>'
 		}
 		return '<small>' + bitsStr + '</small>'
 	}
@@ -98,7 +111,7 @@
 		var html = this.achievementTemplate
 				.replace('::icon::', 'src="' + data.icon + '"')
 				.replace('::title::', data.name)
-				.replace('::bits::', mazs.formatBits(data.bitsByTier))
+				.replace('::bits::', mazs.formatBits(data.id, data.bitsByTier))
 				.replace('::fractal-id::', data.id)
 		if(mazs.isUnwanted(data.id)){
 			html = html
@@ -183,7 +196,7 @@
 	}
 
 	// Marca un fractal como 'No deseado'
-	mazs.toggleWanted = function(element){
+	mazs.toggleWanted = function(e){
 		var fractalID = $(this).parents('.achievement-container').data('fractalid')
 		if(!fractalID){
 			return false
@@ -206,7 +219,37 @@
 		return localStorage.getItem(key) !== null
 	}
 
+	// Marcar tier como hecho
+	mazs.toggleDone = function(e){
+		var fractalID = $(this).parents('.achievement-container').data('fractalid')
+		if($(this).hasClass('done')){
+			var tier = $(this).parents('.achievement-container').find('.tier').index($(this)) + 1
+			$(this).removeClass('done')
+			for(var i = tier; i < 5; i++){
+				$(this).parents('.achievement-container').find('.tier').eq(i - 1).removeClass('done')
+			}
+			tier--
+		}else{
+			var tier = $(this).parents('.achievement-container').find('.tier').index($(this)) + 1
+			$(this).addClass('done')
+			for(var i = tier; i > 0; i--){
+				$(this).parents('.achievement-container').find('.tier').eq(i - 1).addClass('done')
+			}
+		}
+		if(tier > 0){
+			mazs.saveTierDone(fractalID, tier)
+		}else{
+			localStorage.removeItem('fractal-tier-done-' + fractalID)
+		}
+	}
+
+	// Guarda en cookie el tier completado
+	mazs.saveTierDone = function(fractalID, tier){
+		localStorage.setItem('fractal-tier-done-' + fractalID, tier + '][' + new Date())
+	}
+
 	$(document).on('click', '.toggle-unwanted', mazs.toggleWanted)
+	$(document).on('click', '.tier', mazs.toggleDone)
 
 	window.Mazs = mazs
 })()
