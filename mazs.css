@@ -3,15 +3,48 @@ body {
 	font-family: sans-serif;
 	padding: 0;
 	margin: 0;
+	background-color: #EEE;
 }
 .container {
-	width: 400px;
+	margin: 0 auto;
+	width: 500px;
 }
 .achievement-container {
 	background-color: #F9F3FF;
 	overflow: hidden;
 	margin: 5px;
 	border: 1px solid rgba(0, 0, 0, .1);
+	position: relative;
+}
+.achievement-container .toggle-unwanted {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	cursor: pointer;
+	font-size: 0.8em;
+}
+.achievement-container .toggle-unwanted.no {
+	color: red;
+}
+.achievement-container .toggle-unwanted.yes {
+	color: green;
+}
+.achievement-container.unwanted {
+	-webkit-opacity: 0.2;
+	-moz-opacity: 0.2;
+	-ms-opacity: 0.2;
+	-o-opacity: 0.2;
+	opacity: 0.2;
+	-webkit-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
+}
+.achievement-container.unwanted:hover {
+	-webkit-opacity: 1;
+	-moz-opacity: 1;
+	-ms-opacity: 1;
+	-o-opacity: 1;
+	opacity: 1;
 }
 .achievement-container > small {
 	float: left;
@@ -36,13 +69,16 @@ body {
 	height: 50px;
 }
 .section {
-	
+	margin: 15px;
+	border: 1px solid rgba(0, 0, 0, .1);
+	padding: 15px;
+	background-color: #FFF;
 }
 .section-title {
 	background-color: #333;
 	color: #FFF;
 	padding: 20px;
-	margin: 0;
+	margin: -15px -15px 15px -15px;
 }
 
 @media (max-width: 600px) {
