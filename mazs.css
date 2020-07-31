@@ -5,9 +5,14 @@ body {
 	margin: 0;
 	background-color: #EEE;
 }
+.the-father-of-containers {
+	width: 1000px;
+	margin: 0 auto;
+}
 .container {
 	margin: 0 auto;
 	width: 500px;
+	float: left;
 }
 .achievement-container {
 	background-color: #F9F3FF;
@@ -85,10 +90,23 @@ body {
 	padding: 20px;
 	margin: -15px -15px 15px -15px;
 }
+.header {
+	background-color: mediumpurple;
+	color: #FFF;
+	padding: 20px;
+	margin: 16px 16px -16px 16px;
+	font-size: 20px;
+	font-weight: bold;
+}
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
+	.the-father-of-containers {
+		width: 100%;
+		margin: 0 auto;
+	}
 	.container {
 		width: 100%;
+		float: none;
 	}
 	.achievement-container > .icon{
 		/*display: none;*/
