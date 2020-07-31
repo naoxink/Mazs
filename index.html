@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>mazs test</title>
+	<title>Fractals</title>
 	<link rel="stylesheet" href="mazs.css">
 </head>
 <body>
@@ -15,19 +15,33 @@
 		</div>
 	</div>
 
-	<div class="container">
-		<div class="section" id="fractal-tiers"></div>
-		<div class="section" id="fractal-recommended"></div>
+	<div class="the-father-of-containers">
+		<div class="container">
+			<div id="today-header" class="header"></div>
+			<div class="section" id="fractal-tiers"></div>
+			<div class="section" id="fractal-recommended"></div>
+		</div>
+		
+		<div class="container">
+			<div id="tomorrow-header" class="header"></div>
+			<div class="section" id="tomorrow-fractal-tiers"></div>
+			<div class="section" id="tomorrow-fractal-recommended"></div>
+		</div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<script src="fractals.js"></script>
-	<script src="mazs.js"></script>
+	<script src="Mazs.js"></script>
 	<script>
 		if(window.location.href.indexOf('lang=') !== -1){
 			Mazs.setLanguage(window.location.href.split('lang=')[1])
 		}
-		Mazs.getFractals();
+		$(document).ready(function(){
+			$('#today-header').text(Mazs.titleHeaders.today[Mazs.lang])
+			$('#tomorrow-header').text(Mazs.titleHeaders.tomorrow[Mazs.lang])
+			Mazs.getFractals()
+			Mazs.getTomorrowsFractals()
+		})
 	</script>
 </body>
 </html>
