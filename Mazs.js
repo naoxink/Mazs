@@ -1,28 +1,41 @@
 ;(function(){
 	// Inicialización de objeto
 	var mazs = {
+		'titleHeaders': {
+			'today': {
+				'es': 'Fractales de hoy',
+				'en': 'Today\'s fractals',
+				'de': ''
+			},
+			'tomorrow': {
+				'es': 'Fractales de mañana',
+				'en': 'Tomorrow\'s fractals',
+				'de': ''
+			}
+		},
 		'lang': 'es',
 		'urls': {
 			'DAILIES_LIST': 'https://api.guildwars2.com/v2/achievements/daily',
 			'ACHIEVEMENT_DETAIL': 'https://api.guildwars2.com/v2/achievements',
 			'FRACTALS_LIST': 'https://api.guildwars2.com/v2/achievements/categories/88',
-			'ITEM_DETAIL': 'https://api.guildwars2.com/v2/items'
+			'ITEM_DETAIL': 'https://api.guildwars2.com/v2/items',
+			'TOMORROWS_FRACTALS': 'https://api.guildwars2.com/v2/achievements/daily/tomorrow'
 		},
 		'keywords': {
 			'en': 'recommended',
 			'es': 'recomendado',
 			'de': 'empfohlenes'
 		},
-		'regexs': {
-			'en': /Daily Tier [1-4]/i,
-			'es': /de rango [1-4] del día/i,
-			'de': /(^Täglicher Abschluss: |, Rang [1-4]$)/gi
-		},
+    'regexs': {
+      'en': /Daily Tier [1-4]/i,
+      'es': /de rango [1-4] del día/i,
+      'de': /(^Täglicher Abschluss: |, Rang [1-4]$)/gi
+    },
 		'headers': {
 			'fractalTiers': {
-				'en': 'Daily fractal tiers (1, 2, 3, 4)',
-				'es': 'Fractales diarios de rango (1, 2, 3, 4)',
-				'de': 'Tägliche Fraktalstufen (1, 2, 3, 4)'
+				'en': 'Daily fractal tiers',
+				'es': 'Fractales diarios de rango',
+				'de': 'Tägliche Fraktalstufen'
 			},
 			'fractalRecommended': {
 				'en': 'Recommended fractals',
@@ -176,19 +189,21 @@
 		var recommendedIDs = [  ]
 		this.getData(this.urls.FRACTALS_LIST, function(data){
 			_this.getFractalInfo(data.achievements, function(details){
+
 				$('#fractal-tiers').html('').append('<h3 class="section-title">' + _this.headers.fractalTiers[_this.lang] + '</h3>')
 				$('#fractal-recommended').html('').append('<h3 class="section-title">' + _this.headers.fractalRecommended[_this.lang] + '</h3>')
+				
 				for (var i = 0, len = details.length; i < len; i++) {
+					details[i].bit = details[i].name.replace(/\D/ig, '')
 					if(!_this.isRecommended(details[i]) && _this.isMinTier(details[i])){
 						details[i].name = details[i].name.replace(_this.regexs[_this.lang], '')
-						details[i].bitsByTier = _this.groupByTier(details[i])
+						details[i].bitsByTier = { 't1': [ 'T1' ], 't2': [ 'T2' ], 't3': [ 'T3' ], 't4': [ 'T4' ] }
 						_this.print('#fractal-tiers', details[i])
 					}else if(_this.isRecommended(details[i])){
-						details[i].name = details[i].name
-										+ '<br><small>' + fractalNames[_this.lang][details[i].name.replace(/\D/ig, '')] + '</small>'
 						_this.print('#fractal-recommended', details[i])
 					}
 				}
+
 				return callback.call(_this, details)
 			})
 		})
@@ -246,6 +261,35 @@
 	// Guarda en cookie el tier completado
 	mazs.saveTierDone = function(fractalID, tier){
 		localStorage.setItem('fractal-tier-done-' + fractalID, tier + '][' + new Date())
+	}
+
+	mazs.getTomorrowsFractals = function(callback){
+		callback = callback || this.noop
+		var _this = this
+		var recommendedIDs = [  ]
+		this.getData(this.urls.TOMORROWS_FRACTALS, function(data){
+			_this.getFractalInfo(data.fractals.map(function(f){
+				return f.id
+			}), function(details){
+
+				$('#tomorrow-fractal-tiers').html('').append('<h3 class="section-title">' + _this.headers.fractalTiers[_this.lang] + '</h3>')
+				$('#tomorrow-fractal-recommended').html('').append('<h3 class="section-title">' + _this.headers.fractalRecommended[_this.lang] + '</h3>')
+				
+				for (var i = 0, len = details.length; i < len; i++) {
+					details[i].bit = details[i].name.replace(/\D/ig, '')
+					if(!_this.isRecommended(details[i]) && _this.isMinTier(details[i])){
+						details[i].name = details[i].name.replace(_this.regexs[_this.lang], '')
+						details[i].bitsByTier = { 't1': [ 'T1' ], 't2': [ 'T2' ], 't3': [ 'T3' ], 't4': [ 'T4' ] }
+						_this.print('#tomorrow-fractal-tiers', details[i])
+					}else if(_this.isRecommended(details[i])){
+						_this.print('#tomorrow-fractal-recommended', details[i])
+					}
+				}
+
+				return callback.call(_this, details)
+			})
+		})
+		return this
 	}
 
 	$(document).on('click', '.toggle-unwanted', mazs.toggleWanted)
