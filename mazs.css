@@ -56,6 +56,9 @@ body {
 	width: 100%;
 	background-color: rgba(0, 0, 0, .1);
 }
+.achievement-container small.nameFractal {
+	padding: 3px 5px;
+}
 .achievement-container > small > .tier {
 	display: inline-block;
 	border: 1px solid rgba(0, 0, 0, .1);
