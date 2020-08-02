@@ -163,7 +163,12 @@
 				for (var tier = 1; tier <= 4; tier++) {
 					if (fractal.bit == tier) {
 						// Cogemos del array fractalNames de fractals.js el siguiente que coincida con el nombre del tier correspondiente
-						let numberFractal = fractal.requirement.match(/escala de fractal\s(\d+)/)[1]
+						let matchText = "escala de fractal";
+						if (_this.lang == 'en') {
+							matchText = "fractal scale";
+						}
+						let reMatchText = new RegExp(matchText + "\\s(\\d+)");
+						let numberFractal = fractal.requirement.match(reMatchText)[1]
 						let re = new RegExp(fractal.name.toUpperCase());
 
 						for (let key in listFractals) {		
