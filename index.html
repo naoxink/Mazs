@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Fractals</title>
 	<link rel="stylesheet" href="mazs.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 	<div id="achievement-template" style="display: none;">
@@ -27,6 +28,18 @@
 			<div class="section" id="tomorrow-fractal-tiers"></div>
 			<div class="section" id="tomorrow-fractal-recommended"></div>
 		</div>
+
+		<div class="container">
+			<div class="section">
+				<h3 class="section-title" id="ar-header"></h3>
+				<div class="section text-center">
+					<span class="ar-plus text-ar">+</span> <input type="text" class="ar-input" maxlength="2" value="1">
+					<div class="ar-result-container">
+						<img src="https://wiki-es.guildwars2.com/images/thumb/f/f2/Infusi%C3%B3n_de_agon%C3%ADa.png/40px-Infusi%C3%B3n_de_agon%C3%ADa.png" alt="+1" title="+1"> x <span class="ar-result text-ar">1</span>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -39,6 +52,19 @@
 		$(document).ready(function(){
 			$('#today-header').text(Mazs.titleHeaders.today[Mazs.lang])
 			$('#tomorrow-header').text(Mazs.titleHeaders.tomorrow[Mazs.lang])
+			$('#ar-header').text(Mazs.titleHeaders.ar[Mazs.lang])
+			$('.ar-input').keyup(function(e){
+				e.preventDefault()
+				let val = +$(this).val()
+				if(!val) val = 0
+				$('.ar-result').text(Mazs.calcAr(val))
+			})
+			$('.ar-input').change(function(e){
+				e.preventDefault()
+				let val = +$(this).val()
+				if(!val) val = 0
+				$('.ar-result').text(Mazs.calcAr(val))
+			})
 			Mazs.getFractals()
 			Mazs.getTomorrowsFractals()
 		})

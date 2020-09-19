@@ -111,8 +111,34 @@ a.linkFractal {
 	font-weight: normal;
 	font-style: italic;
 }
+.bg-ar {
+	background-color: #AA2A2A;
+}
+.text-ar {
+	color: #AA2A2A;
+}
+.text-center {
+	text-align: center;
+}
+.ar-input {
+	padding: 5px 10px;
+	border: 1px solid rgba(0, 0, 0, .1);
+	font-size: 2em;
+	max-width: 30px;
+}
+.ar-plus {
+	font-size: 2em;
+}
+.ar-result-container {
+	font-size: 2em;
+	margin-top: 10px;
+}
+.ar-result-container img {
+	max-width: 20px;
+	max-height: 20px;
+}
 
-@media (max-width: 1000px) {
+@media (max-width: 800px) {
 	.the-father-of-containers {
 		width: 100%;
 		margin: 0 auto;

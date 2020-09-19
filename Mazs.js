@@ -11,6 +11,10 @@
 				'es': 'Fractales de mañana',
 				'en': 'Tomorrow\'s fractals',
 				'de': ''
+			},
+			'ar': {
+				'es': 'Calculadora de infusiones',
+				'en': 'AR Infusion calculator'
 			}
 		},
 		'lang': 'es',
@@ -353,6 +357,10 @@
 	// Guarda en cookie el tier completado
 	mazs.saveTierDone = function(fractalID, tier){
 		localStorage.setItem('fractal-tier-done-' + fractalID, tier + '][' + new Date())
+	}
+
+	mazs.calcAr = function(val){
+		return Math.pow(2, parseInt(val, 10) - 1)
 	}
 
 	$(document).on('click', '.toggle-unwanted', mazs.toggleWanted)
