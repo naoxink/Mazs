@@ -5,13 +5,18 @@ body {
 	margin: 0;
 	background-color: #EEE;
 }
+a.linkFractal {
+	font-style: normal;	
+	text-decoration: none;
+	color: #230046;
+}
 .the-father-of-containers {
-	width: 1000px;
+	width: 1100px;
 	margin: 0 auto;
 }
 .container {
 	margin: 0 auto;
-	width: 500px;
+	width: 550px;
 	float: left;
 }
 .achievement-container {
@@ -100,6 +105,11 @@ body {
 	margin: 16px 16px -16px 16px;
 	font-size: 20px;
 	font-weight: bold;
+}
+.agony {
+	color: red;
+	font-weight: normal;
+	font-style: italic;
 }
 
 @media (max-width: 1000px) {

@@ -115,7 +115,9 @@
 						}
 					}
 				}
-				bitsStr += '<span class="tier ' + bitClass + '">' + bits[tier][0] + " (" + bits[tier][1] + ")" + '</span>'
+				bitsStr += '<span class="tier ' + bitClass + '"><div>' + bits[tier][0] + "</div>"
+				bitsStr += '<div>' + bits[tier][1].map(txt => {return ''+txt.lvl + ' <span class="agony">(' + txt.ar + ')</span>' }).join(' - ') + ''
+				bitsStr += '</div></span>'
 			}
 		})
 		return '<small>' + bitsStr + '</small>'
@@ -129,7 +131,7 @@
 		if(!_this.isRecommended(data)){
 			bits = mazs.formatBits(data.id, data.bitsByTier)
 		} else if (_this.isRecommended(data)) {
-			bits = "<small class='nameFractal'>"+fractalNames[_this.lang][data.bit]+"</small>"
+			bits = "<small class='nameFractal'><a class='linkFractal' href='" + fractalList[data.bit]["name"]["url"] + "' target='_blank'>" + fractalList[data.bit]["name"][_this.lang] + "</a> <span class='agony'>("+fractalList[data.bit]["ar"]+")</span></small>"
 		}
 		var html = this.achievementTemplate
 				.replace('::icon::', 'src="' + data.icon + '"')
@@ -155,30 +157,33 @@
 		Object.keys(data).forEach(function(key) {
 			let detailsFractal = {}
 			let bitsByTier = []
-			const listFractals = fractalNames[_this.lang]
+			const listFractals = fractalList
 			data[key].forEach(function(fractal){
 				detailsFractal.id = fractal.id
 				detailsFractal.icon = "https://render.guildwars2.com/file/4A5834E40CDC6A0C44085B1F697565002D71CD47/1228226.png"
 				detailsFractal.name = fractal.name
 				for (var tier = 1; tier <= 4; tier++) {
 					if (fractal.bit == tier) {
-						// Cogemos del array fractalNames de fractals.js el siguiente que coincida con el nombre del tier correspondiente
+						// Cogemos del array fractalList de fractals.js el siguiente que coincida con el nombre del tier correspondiente
 						let matchText = "escala de fractal";
 						if (_this.lang == 'en') {
 							matchText = "fractal scale";
 						}
 						let reMatchText = new RegExp(matchText + "\\s(\\d+)");
 						let numberFractal = fractal.requirement.match(reMatchText)[1]
+						let numbersFractals = []
 						let re = new RegExp(fractal.name.toUpperCase());
-
 						for (let key in listFractals) {		
-							if (Number(key) > Number(numberFractal) && re.test(listFractals[key].toUpperCase())) {
-								numberFractal = key;
-								break;
+							if (Number(key) >= Number(numberFractal) && re.test(listFractals[key]["name"][_this.lang].toUpperCase())) {
+								if (tier==1 && key>25) break;
+								else if (tier==2 && key>50) break;
+								else if (tier==3 && key>75) break;
+								numbersFractals.push({'lvl':key, 'ar':listFractals[key]["ar"]});
+								detailsFractal.name = "<a class='linkFractal' href='" + listFractals[key]["name"]["url"] + "' target='_blank'>" + listFractals[key]["name"][_this.lang] + "</a>"
 							}
 						}
 
-						bitsByTier.push({[`t${tier}`]: [ 'T'+tier, numberFractal]})
+						bitsByTier.push({[`t${tier}`]: [ 'T'+tier, numbersFractals]})
 					}
 				}
 			})
