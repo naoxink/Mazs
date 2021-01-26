@@ -45,6 +45,16 @@
 				'en': 'Recommended fractals',
 				'es': 'Fractales recomendados',
 				'de': 'Fractals Empfohlen'
+			},
+			'dailystrike': {
+				'es': 'Misión de ataque de hoy',
+				'en': 'Daily strike mission',
+				'de': ''
+			},
+			'tomorrowstrike': {
+				'es': 'Misión de ataque de mañana',
+				'en': 'Tomorrow\'s strike mission',
+				'de': ''
 			}
 		},
 		'unwantedtext': {
