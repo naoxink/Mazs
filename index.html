@@ -21,12 +21,14 @@
 			<div id="today-header" class="header"></div>
 			<div class="section" id="fractal-tiers"></div>
 			<div class="section" id="fractal-recommended"></div>
+			<div class="section" id="daily-strike"></div>
 		</div>
 		
 		<div class="container">
 			<div id="tomorrow-header" class="header"></div>
 			<div class="section" id="tomorrow-fractal-tiers"></div>
 			<div class="section" id="tomorrow-fractal-recommended"></div>
+			<div class="section" id="tomorrow-daily-strike"></div>
 		</div>
 
 		<div class="container">
@@ -45,6 +47,7 @@
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<script src="fractals.js"></script>
 	<script src="Mazs.js"></script>
+	<script src="strikes.js"></script>
 	<script>
 		if(window.location.href.indexOf('lang=') !== -1){
 			Mazs.setLanguage(window.location.href.split('lang=')[1])
@@ -67,6 +70,10 @@
 			})
 			Mazs.getFractals()
 			Mazs.getTomorrowsFractals()
+			const todayS = getTodaysStrike()
+			$('#daily-strike').html('').append('<h3 class="section-title">' + Mazs.headers.dailystrike[Mazs.lang] + '</h3>').append(todayS[Mazs.lang])
+			const tomorrowS = getTomorrowsStrike()
+			$('#tomorrow-daily-strike').html('').append('<h3 class="section-title">' + Mazs.headers.tomorrowstrike[Mazs.lang] + '</h3>').append(tomorrowS[Mazs.lang])
 		})
 	</script>
 </body>
