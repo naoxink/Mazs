@@ -1,5 +1,5 @@
 const diffDaysFromDayZero = () => {
-  const dayZero = new Date(2021, 0, 22).getTime()
+  const dayZero = new Date(2021, 0, 21).getTime()
   const today = new Date().getTime()
   return parseInt( (today - dayZero) / (24*3600*1000) )
 }
