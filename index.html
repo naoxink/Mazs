@@ -22,6 +22,7 @@
 			<div class="section" id="fractal-tiers"></div>
 			<div class="section" id="fractal-recommended"></div>
 			<div class="section" id="daily-strike"></div>
+			<div class="section" id="daily-eod-strike"></div>
 		</div>
 		
 		<div class="container">
@@ -29,6 +30,7 @@
 			<div class="section" id="tomorrow-fractal-tiers"></div>
 			<div class="section" id="tomorrow-fractal-recommended"></div>
 			<div class="section" id="tomorrow-daily-strike"></div>
+			<div class="section" id="tomorrow-eod-strike"></div>
 		</div>
 
 		<div class="container">
@@ -74,6 +76,10 @@
 			$('#daily-strike').html('').append('<h3 class="section-title">' + Mazs.headers.dailystrike[Mazs.lang] + '</h3>').append(todayS[Mazs.lang])
 			const tomorrowS = getTomorrowsStrike(ibsStrikes)
 			$('#tomorrow-daily-strike').html('').append('<h3 class="section-title">' + Mazs.headers.tomorrowstrike[Mazs.lang] + '</h3>').append(tomorrowS[Mazs.lang])
+			const todayS = getTodaysStrike(eodStrikes)
+			$('#daily-eod-strike').html('').append('<h3 class="section-title">' + Mazs.headers.dailystrike[Mazs.lang] + '</h3>').append(todayS[Mazs.lang])
+			const tomorrowS = getTomorrowsStrike(eodStrikes)
+			$('#tomorrow-eod-strike').html('').append('<h3 class="section-title">' + Mazs.headers.tomorrowstrike[Mazs.lang] + '</h3>').append(tomorrowS[Mazs.lang])
 		})
 	</script>
 </body>
