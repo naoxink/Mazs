@@ -33,11 +33,6 @@ const ibsStrikes = [
 
 const eodStrikes = [
   {
-    'en': 'Old Lion\'s Court',
-    'es': 'Vieja Corte del León',
-    'de': 'Alter Löwenhof'
-  },
-  {
     'en': 'Harvest Temple',
     'es': 'Templo de la Cosecha',
     'de': ''
@@ -56,6 +51,11 @@ const eodStrikes = [
     'en': 'Kaineng Overlook',
     'es': 'Mirador de Kaineng',
     'de': ''
+  },
+  {
+    'en': 'Old Lion\'s Court',
+    'es': 'Vieja Corte del León',
+    'de': 'Alter Löwenhof'
   }
 ]
 
