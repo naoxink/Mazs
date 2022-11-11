@@ -33,6 +33,11 @@ const ibsStrikes = [
 
 const eodStrikes = [
   {
+    'en': 'Old Lion\'s Court',
+    'es': 'Vieja Corte del León',
+    'de': 'Alter Löwenhof'
+  },
+  {
     'en': 'Harvest Temple',
     'es': 'Templo de la Cosecha',
     'de': ''
