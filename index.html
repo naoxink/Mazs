@@ -70,9 +70,9 @@
 			})
 			Mazs.getFractals()
 			Mazs.getTomorrowsFractals()
-			const todayS = getTodaysStrike()
+			const todayS = getTodaysStrike(ibsStrikes)
 			$('#daily-strike').html('').append('<h3 class="section-title">' + Mazs.headers.dailystrike[Mazs.lang] + '</h3>').append(todayS[Mazs.lang])
-			const tomorrowS = getTomorrowsStrike()
+			const tomorrowS = getTomorrowsStrike(ibsStrikes)
 			$('#tomorrow-daily-strike').html('').append('<h3 class="section-title">' + Mazs.headers.tomorrowstrike[Mazs.lang] + '</h3>').append(tomorrowS[Mazs.lang])
 		})
 	</script>
