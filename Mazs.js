@@ -47,13 +47,23 @@
 				'de': 'Fractals Empfohlen'
 			},
 			'dailystrike': {
-				'es': 'Misión de ataque de hoy',
-				'en': 'Daily strike mission',
+				'es': 'Misión de ataque de hoy (IBS)',
+				'en': 'Daily strike mission (IBS)',
 				'de': ''
 			},
 			'tomorrowstrike': {
-				'es': 'Misión de ataque de mañana',
-				'en': 'Tomorrow\'s strike mission',
+				'es': 'Misión de ataque de mañana (IBS)',
+				'en': 'Tomorrow\'s strike mission (IBS)',
+				'de': ''
+			},
+			'dailyeodstrike': {
+				'es': 'Misión de ataque de hoy (EoD)',
+				'en': 'Daily strike mission (EoD)',
+				'de': ''
+			},
+			'tomorroweodstrike': {
+				'es': 'Misión de ataque de mañana (EoD)',
+				'en': 'Tomorrow\'s strike mission (EoD)',
 				'de': ''
 			}
 		},
