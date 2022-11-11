@@ -77,9 +77,9 @@
 			const tomorrowS = getTomorrowsStrike(ibsStrikes)
 			$('#tomorrow-daily-strike').html('').append('<h3 class="section-title">' + Mazs.headers.tomorrowstrike[Mazs.lang] + '</h3>').append(tomorrowS[Mazs.lang])
 			const todayEodS = getTodaysStrike(eodStrikes)
-			$('#daily-eod-strike').html('').append('<h3 class="section-title">' + Mazs.headers.dailystrike[Mazs.lang] + '</h3>').append(todayEodS[Mazs.lang])
+			$('#daily-eod-strike').html('').append('<h3 class="section-title">' + Mazs.headers.dailyeodstrike[Mazs.lang] + '</h3>').append(todayEodS[Mazs.lang])
 			const tomorrowEodS = getTomorrowsStrike(eodStrikes)
-			$('#tomorrow-eod-strike').html('').append('<h3 class="section-title">' + Mazs.headers.tomorrowstrike[Mazs.lang] + '</h3>').append(tomorrowEodS[Mazs.lang])
+			$('#tomorrow-eod-strike').html('').append('<h3 class="section-title">' + Mazs.headers.tomorroweodstrike[Mazs.lang] + '</h3>').append(tomorrowEodS[Mazs.lang])
 		})
 	</script>
 </body>
