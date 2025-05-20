@@ -1,81 +1,14 @@
-const ibsStrikes = [
-  {
-    'en': 'Voice of the Fallen and Claw of the Fallen',
-    'es': 'Voz de los Caídos y Garra de los Caídos',
-    'de': 'Stimme der Gefallenen und Klaue der Gefallenen'
+const Strikes = {
+  5239: {
+    location: 'Ojo del norte',
+    alias: [ 'shiver' ]
   },
-  {
-    'en': 'Whisper of Jormag',
-    'es': 'Susurro de Jormag',
-    'de': 'Geflüster des Jormag'
+  6353: {
+    location: 'Piedra arbórea',
+    alias: [ 'AH' ]
   },
-  {
-    'en': 'Boneskinner',
-    'es': 'Pelahuesos',
-    'de': 'Knochenhäuter'
-  },
-  {
-    'en': 'Cold War',
-    'es': 'Guerra fría',
-    'de': 'Kalter Krieg'
-  },
-  {
-    'en': 'Fraenir of Jormag',
-    'es': 'Fraenir de Jormag',
-    'de': 'Fraenir Jormags'
-  },
-  {
-    'en': 'Shiverpeaks Pass',
-    'es': 'Paso de las Picosescalofriantes',
-    'de': 'Zittergipfel-Pass'
-  },
-]
-
-const eodStrikes = [
-  {
-    'en': 'Harvest Temple',
-    'es': 'Templo de la Cosecha',
-    'de': ''
-  },
-  {
-    'en': 'Aetherblade Hideout',
-    'es': 'Escondite Filoetéreo',
-    'de': ''
-  },
-  {
-    'en': 'Xunlai Jade Junkyard',
-    'es': 'Chatarrería de Xunlai Jade',
-    'de': ''
-  },
-  {
-    'en': 'Kaineng Overlook',
-    'es': 'Mirador de Kaineng',
-    'de': ''
-  },
-  {
-    'en': 'Old Lion\'s Court',
-    'es': 'Vieja Corte del León',
-    'de': 'Alter Löwenhof'
+  7130: {
+    location: 'Torre del brujo',
+    alias: [ 'CO' ]
   }
-]
-
-const diffDaysFromDayZero = () => {
-  const dayZero = new Date(2021, 0, 20, 2).getTime()
-  const today = new Date().getTime()
-  return parseInt( (today - dayZero) / (24*3600*1000) )
-}
-
-const getStrike = (daysFromZero, strikes) => {
-  const rest = daysFromZero % strikes.length
-  return strikes[rest]
-}
-
-
-
-const getTodaysStrike = (strikes) => {
-  return getStrike(diffDaysFromDayZero(), strikes)
-}
-
-const getTomorrowsStrike = (strikes) => {
-  return getStrike(diffDaysFromDayZero() + 1, strikes)
 }

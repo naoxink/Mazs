@@ -21,16 +21,11 @@
 			<div id="today-header" class="header"></div>
 			<div class="section" id="fractal-tiers"></div>
 			<div class="section" id="fractal-recommended"></div>
-			<div class="section" id="daily-strike"></div>
-			<div class="section" id="daily-eod-strike"></div>
 		</div>
-		
+
 		<div class="container">
-			<div id="tomorrow-header" class="header"></div>
-			<div class="section" id="tomorrow-fractal-tiers"></div>
-			<div class="section" id="tomorrow-fractal-recommended"></div>
-			<div class="section" id="tomorrow-daily-strike"></div>
-			<div class="section" id="tomorrow-eod-strike"></div>
+			<div id="today-strikes-header" class="header"></div>
+			<div class="section" id="daily-strikes"></div>
 		</div>
 
 		<div class="container">
@@ -71,15 +66,8 @@
 				$('.ar-result').text(Mazs.calcAr(val))
 			})
 			Mazs.getFractals()
-			Mazs.getTomorrowsFractals()
-			const todayS = getTodaysStrike(ibsStrikes)
-			$('#daily-strike').html('').append('<h3 class="section-title">' + Mazs.headers.dailystrike[Mazs.lang] + '</h3>').append(todayS[Mazs.lang])
-			const tomorrowS = getTomorrowsStrike(ibsStrikes)
-			$('#tomorrow-daily-strike').html('').append('<h3 class="section-title">' + Mazs.headers.tomorrowstrike[Mazs.lang] + '</h3>').append(tomorrowS[Mazs.lang])
-			const todayEodS = getTodaysStrike(eodStrikes)
-			$('#daily-eod-strike').html('').append('<h3 class="section-title">' + Mazs.headers.dailyeodstrike[Mazs.lang] + '</h3>').append(todayEodS[Mazs.lang])
-			const tomorrowEodS = getTomorrowsStrike(eodStrikes)
-			$('#tomorrow-eod-strike').html('').append('<h3 class="section-title">' + Mazs.headers.tomorroweodstrike[Mazs.lang] + '</h3>').append(tomorrowEodS[Mazs.lang])
+			// Mazs.getTomorrowsFractals()
+			Mazs.getDailyStrikes()
 		})
 	</script>
 </body>

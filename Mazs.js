@@ -23,7 +23,8 @@
 			'ACHIEVEMENT_DETAIL': 'https://api.guildwars2.com/v2/achievements',
 			'FRACTALS_LIST': 'https://api.guildwars2.com/v2/achievements/categories/88',
 			'ITEM_DETAIL': 'https://api.guildwars2.com/v2/items',
-			'TOMORROWS_FRACTALS': 'https://api.guildwars2.com/v2/achievements/daily/tomorrow'
+			'TOMORROWS_FRACTALS': 'https://api.guildwars2.com/v2/achievements/daily/tomorrow',
+			'DAILY_STRIKES_LIST': 'https://api.guildwars2.com/v2/achievements/categories/250'
 		},
 		'keywords': {
 			'en': 'recommended',
@@ -97,6 +98,34 @@
 			'async': false,
 			'success': callback
 		})
+	}
+
+	mazs.getDailyStrikes = function() {
+		mazs.getData(this.urls.DAILY_STRIKES_LIST + '?lang=' + this.lang, res => {
+			if (!res) return false
+			$('#today-strikes-header').text(res.name)
+			// Obtener datos de las strikes
+			mazs.getFractalInfo(res.achievements, function(details){
+				details.forEach(detail => mazs.printDailyStrike(res.icon, detail))
+			})
+		})
+	}
+
+	mazs.printDailyStrike = function(icon, detail) {
+		let location = ''
+		let alias = ''
+		if (Strikes[detail.id]) {
+			location = Strikes[detail.id].location
+			alias = Strikes[detail.id].alias.map(a => `<span class="alias">${a}</span>`).join('')
+		}
+		$('#daily-strikes').append(`<div class="strike">
+			<img class="icon" src="${icon}">
+			<span class="title">${detail.name}</span>
+			<div class="extra">
+				<small class="location">${location}</small>
+				<small class="aliases">${alias}</small>
+			</div>
+		</div>`)
 	}
 
 	// Devuelve los detalles de el/los fractal/es indicado/s

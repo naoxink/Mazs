@@ -138,6 +138,49 @@ a.linkFractal {
 	max-height: 20px;
 }
 
+
+#today-strikes-header {
+	background-color: #169bca;
+}
+.strike .icon {
+	max-width: 30px;
+}
+
+.strike {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 10px 0 10px 0;
+    border: 1px solid rgba(0, 0, 0, .1);
+}
+
+.strike .title {
+	margin-left: .5em;
+}
+
+.strike .extra {
+	flex-basis: 100%;
+	width: 100%;
+	padding: 5px 10px;
+	background-color: #EEE;
+	display: flex;
+}
+
+.strike .extra .location {
+	flex: 1;
+}
+
+.strike .extra .aliases {
+	flex: 2;
+	text-align: right;
+}
+
+.strike .extra .aliases .alias {
+	padding: 2px 5px;
+	border: 1px solid rgba(0, 0, 0, .1);
+	background-color: #fff;
+}
+
 @media (max-width: 800px) {
 	.the-father-of-containers {
 		width: 100%;
