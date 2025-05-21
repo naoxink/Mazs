@@ -170,7 +170,7 @@
 			if(done){
 				var doneSplitted = done.split('][')
 				var today = new Date()
-				if(parseInt(tier.replace('t', ''), 10) <= parseInt(doneSplitted[0], 10)){
+				if(parseInt(tier.replace('T', ''), 10) <= parseInt(doneSplitted[0], 10)){
 					if(new Date(doneSplitted[1]).getDay() > today.getDay() && today.getHours() > 1){
 						localStorage.removeItem('fractal-tier-done-' + fractalID)
 					}else{
