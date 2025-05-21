@@ -150,29 +150,39 @@
 	}
 
 	// Fomatea (HTML) los niveles de fractales (::bits::)
-	mazs.formatBits = function(fractalID, bitsGroup){
-		if(!bitsGroup){ return '' }
+	mazs.formatBits = function(fractalID, bitsmap){
+		if(!bitsmap){ return '' }
 		var bitsStr = ''
-		bitsGroup.forEach(function(bits){
-			for(var tier in bits){
-				var bitClass = ''
-				var done = localStorage.getItem('fractal-tier-done-' + fractalID)
-				if(done){
-					var doneSplitted = done.split('][')
-					var today = new Date()
-					if(parseInt(tier.replace('t', ''), 10) <= parseInt(doneSplitted[0], 10)){
-						if(new Date(doneSplitted[1]).getDay() > today.getDay() && today.getHours() > 1){
-							localStorage.removeItem('fractal-tier-done-' + fractalID)
-						}else{
-							bitClass = 'done'
-						}
+
+		// Ordenar tiers
+		bitsmap = Object.keys(bitsmap)
+	  .sort((a, b) => a.slice(1) - b.slice(1)) // ordena por el número después de la T
+	  .reduce((acc, key) => {
+	    acc[key] = bitsmap[key]
+	    return acc
+	  }, {})
+
+		for (let tier in bitsmap) {
+			const higherFractal = bitsmap[tier].pop()
+
+			var bitClass = ''
+			var done = localStorage.getItem('fractal-tier-done-' + fractalID)
+			if(done){
+				var doneSplitted = done.split('][')
+				var today = new Date()
+				if(parseInt(tier.replace('t', ''), 10) <= parseInt(doneSplitted[0], 10)){
+					if(new Date(doneSplitted[1]).getDay() > today.getDay() && today.getHours() > 1){
+						localStorage.removeItem('fractal-tier-done-' + fractalID)
+					}else{
+						bitClass = 'done'
 					}
 				}
-				bitsStr += '<span class="tier ' + bitClass + '"><div>' + bits[tier][0] + "</div>"
-				bitsStr += '<div>' + bits[tier][1].map(txt => {return ''+txt.lvl + ' <span class="agony">(' + txt.ar + ')</span>' }).join(' - ') + ''
-				bitsStr += '</div></span>'
 			}
-		})
+			bitsStr += '<span class="tier ' + bitClass + '"><div>' + tier + "</div>"
+			bitsStr += '<div>' + higherFractal.lvl + ' <span class="agony">(' + higherFractal.ar + ')</span>'
+			bitsStr += '</div></span>'
+
+		}
 		return '<small>' + bitsStr + '</small>'
 	}
 
@@ -209,34 +219,32 @@
 
 		Object.keys(data).forEach(function(key) {
 			let detailsFractal = {}
-			let bitsByTier = []
+			let bitsByTier = {}
 			const listFractals = fractalList
 			data[key].forEach(function(fractal){
 				detailsFractal.id = fractal.id
 				detailsFractal.icon = "https://render.guildwars2.com/file/4A5834E40CDC6A0C44085B1F697565002D71CD47/1228226.png"
 				detailsFractal.name = fractal.name
 				for (var tier = 1; tier <= 4; tier++) {
-					if (fractal.bit == tier) {
+					if (+fractal.bit == tier) {
 						// Cogemos del array fractalList de fractals.js el siguiente que coincida con el nombre del tier correspondiente
 						let matchText = "escala de fractal";
 						if (_this.lang == 'en') {
 							matchText = "fractal scale";
 						}
-						let reMatchText = new RegExp(matchText + "\\s(\\d+)");
-						let numberFractal = fractal.requirement.match(reMatchText)[1]
 						let numbersFractals = []
 						let re = new RegExp(fractal.name.toUpperCase());
-						for (let key in listFractals) {		
-							if (Number(key) >= Number(numberFractal) && re.test(listFractals[key]["name"][_this.lang].toUpperCase())) {
-								if (tier==1 && key>25) break;
-								else if (tier==2 && key>50) break;
-								else if (tier==3 && key>75) break;
-								numbersFractals.push({'lvl':key, 'ar':listFractals[key]["ar"]});
+						for (let key in listFractals) {
+							if (re.test(listFractals[key]["name"][_this.lang].toUpperCase())) {
+								if (tier === 1 && key > 25) break;
+								else if (tier === 2 && key > 50) break;
+								else if (tier === 3 && key > 75) break;
+								numbersFractals.push({ lvl: key, ar: listFractals[key]["ar"] });
 								detailsFractal.name = "<a class='linkFractal' href='" + listFractals[key]["name"]["url"] + "' target='_blank'>" + listFractals[key]["name"][_this.lang] + "</a>"
 							}
 						}
 
-						bitsByTier.push({[`t${tier}`]: [ 'T'+tier, numbersFractals]})
+						bitsByTier[`T${tier}`] = numbersFractals
 					}
 				}
 			})
