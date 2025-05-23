@@ -369,7 +369,7 @@
 			this.closest('.achievement-container').classList.remove('unwanted')
 			this.classList.remove('no')
 			this.classList.add('yes')
-			this.classList.innerText = mazs.unwantedtext.yes[mazs.lang]
+			this.innerText = mazs.unwantedtext.yes[mazs.lang]
 		}else{
 			localStorage.setItem(key, true)
 			this.closest('.achievement-container').classList.add('unwanted')
@@ -397,41 +397,28 @@
 	mazs.toggleDone = function(e){
 		const clicked = this
 		const achi = this.closest('.achievement-container')
+		const fractalID = achi.getAttribute('data-fractalid')
 		const isDone = this.classList.contains('done')
 		let passed = false
+		let index = -1
 		let tiers = [...achi.querySelectorAll('.tier')]
 		if (isDone) {
 			tiers.reverse()
 		}
-		tiers.forEach(tier => {
+		tiers.forEach((tier, i) => {
 			if (passed) return false
 			if (clicked === tier) {
+				index = i
 				passed = true
 			}
 			tier.classList[isDone ? 'remove' : 'add']('done')
 		})
-		return false
-
-		var fractalID = this.closest('.achievement-container').getAttribute('data-fractalid')
-		if(this.classList.contains('done')){
-			var tier = mazs.getElementIndex(this.closest('.achievement-container'), '.tier', this) + 1
-			this.classList.remove('done')
-			for(var i = tier; i < 5; i++){
-				this.closest('.achievement-container').querySelector('.tier:nth-child(' + (i - 1) + ')').classList.remove('done')
-			}
-			tier--
-		}else{
-			var tier = mazs.getElementIndex(this.closest('.achievement-container'), '.tier', this) + 1
-			this.classList.add('done')
-			for(var i = tier; i > 0; i--){
-				this.closest('.achievement-container').querySelector('.tier:nth-child(' + (i - 1) + ')').classList.add('done')
-			}
-		}
-		if(tier > 0){
-			mazs.saveTierDone(fractalID, tier)
+		if(index > 0){
+			mazs.saveTierDone(fractalID, index)
 		}else{
 			localStorage.removeItem('fractal-tier-done-' + fractalID)
 		}
+		return false
 	}
 
 	// Guarda en cookie el tier completado
