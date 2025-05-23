@@ -91,19 +91,13 @@
 
 	// Hace la petición a la API
 	mazs.getData = function(url, callback){
-		$.ajax({
-			'url': url,
-			'type': 'GET',
-			'dataType': 'json',
-			'async': false,
-			'success': callback
-		})
+		fetch(url).then(res => res.json()).then(callback)
 	}
 
 	mazs.getDailyStrikes = function() {
 		mazs.getData(this.urls.DAILY_STRIKES_LIST + '?lang=' + this.lang, res => {
 			if (!res) return false
-			$('#today-strikes-header').text(res.name)
+			document.querySelector('#today-strikes-header').innerText = res.name
 			// Obtener datos de las strikes
 			mazs.getFractalInfo(res.achievements, function(details){
 				details.forEach(detail => mazs.printDailyStrike(res.icon, detail))
@@ -118,14 +112,14 @@
 			location = Strikes[detail.id].location
 			alias = Strikes[detail.id].alias.map(a => `<span class="alias">${a}</span>`).join('')
 		}
-		$('#daily-strikes').append(`<div class="strike">
+		document.querySelector('#daily-strikes').innerHTML = document.querySelector('#daily-strikes').innerHTML + `<div class="strike">
 			<img class="icon" src="${icon}">
 			<span class="title">${detail.name}</span>
 			<div class="extra">
 				<small class="location">${location}</small>
 				<small class="aliases">${alias}</small>
 			</div>
-		</div>`)
+		</div>`
 	}
 
 	// Devuelve los detalles de el/los fractal/es indicado/s
@@ -212,7 +206,7 @@
 					.replace('::unwanted-text::', mazs.unwantedtext.yes[_this.lang])
 					.replace('::class-unwanted::', 'yes')
 		}
-		$(section).append(html)
+		$(section).innerHTML = $(section).innerHTML = html
 	}
 	mazs.printGroup = function(data, typeFractal) {
 		var _this = this		
@@ -302,8 +296,8 @@
 		var recommendedIDs = [  ]
 		this.getData(this.urls.FRACTALS_LIST, function(data){
 			_this.getFractalInfo(data.achievements, function(details){
-				$('#fractal-tiers').html('').append('<h3 class="section-title">' + _this.headers.fractalTiers[_this.lang] + '</h3>')
-				$('#fractal-recommended').html('').append('<h3 class="section-title">' + _this.headers.fractalRecommended[_this.lang] + '</h3>')
+				document.querySelector('#fractal-tiers').innerHTML = '<h3 class="section-title">' + _this.headers.fractalTiers[_this.lang] + '</h3>'
+				document.querySelector('#fractal-recommended').innerHTML = '<h3 class="section-title">' + _this.headers.fractalRecommended[_this.lang] + '</h3>'
 				
 				detailsFractals = []
 				for (var i = 0, len = details.length; i < len; i++) {
@@ -337,8 +331,8 @@
 				return f.id
 			}), function(details){
 
-				$('#tomorrow-fractal-tiers').html('').append('<h3 class="section-title">' + _this.headers.fractalTiers[_this.lang] + '</h3>')
-				$('#tomorrow-fractal-recommended').html('').append('<h3 class="section-title">' + _this.headers.fractalRecommended[_this.lang] + '</h3>')
+				document.querySelector('#tomorrow-fractal-tiers').innerHTML = '<h3 class="section-title">' + _this.headers.fractalTiers[_this.lang] + '</h3>'
+				document.querySelector('#tomorrow-fractal-recommended').innerHTML = '<h3 class="section-title">' + _this.headers.fractalRecommended[_this.lang] + '</h3>'
 				
 				detailsFractals = []
 				for (var i = 0, len = details.length; i < len; i++) {
@@ -372,12 +366,22 @@
 		var key = 'fractal-unwanted-' + fractalID
 		if(localStorage.getItem(key)){
 			localStorage.removeItem(key)
-			$(this).parents('.achievement-container').removeClass('unwanted')
-			$(this).removeClass('no').addClass('yes').text(mazs.unwantedtext.yes[mazs.lang])
+			this.closest('.achievement-container')
+				.classList
+					.remove('unwanted')
+			this.classList
+					.remove('no')
+					.add('yes')
+				.innerText = mazs.unwantedtext.yes[mazs.lang]
 		}else{
 			localStorage.setItem(key, true)
-			$(this).parents('.achievement-container').addClass('unwanted')
-			$(this).removeClass('yes').addClass('no').text(mazs.unwantedtext.no[mazs.lang])
+			this.closest('.achievement-container')
+				.classList
+					.add('unwanted')
+			this.classList
+				.remove('yes')
+				.add('no')
+				.text(mazs.unwantedtext.no[mazs.lang])
 		}
 	}
 
@@ -387,21 +391,29 @@
 		return localStorage.getItem(key) !== null
 	}
 
+	mazs.getElementIndex = (parent, selector, element) => {
+		const children = [...parent.querySelectorAll(selector)]
+		for (let n = 0; n < children.length; n++) {
+			if (children[n] === element) return n
+		}
+		return -1
+	}
+
 	// Marcar tier como hecho
 	mazs.toggleDone = function(e){
-		var fractalID = $(this).parents('.achievement-container').data('fractalid')
-		if($(this).hasClass('done')){
-			var tier = $(this).parents('.achievement-container').find('.tier').index($(this)) + 1
-			$(this).removeClass('done')
+		var fractalID = this.closest('.achievement-container').getAttribute('data-fractalid')
+		if(this.classList.contains('done')){
+			var tier = mazs.getElementIndex(this.closest('.achievement-container'), '.tier', this) + 1
+			this.classList.remove('done')
 			for(var i = tier; i < 5; i++){
-				$(this).parents('.achievement-container').find('.tier').eq(i - 1).removeClass('done')
+				this.closest('.achievement-container').querySelector('.tier:nth-child(' + (i - 1) + ')').classList.remove('done')
 			}
 			tier--
 		}else{
-			var tier = $(this).parents('.achievement-container').find('.tier').index($(this)) + 1
-			$(this).addClass('done')
+			var tier = mazs.getElementIndex(this.closest('.achievement-container'), '.tier', this) + 1
+			this.classList.add('done')
 			for(var i = tier; i > 0; i--){
-				$(this).parents('.achievement-container').find('.tier').eq(i - 1).addClass('done')
+				this.closest('.achievement-container').querySelector('.tier:nth-child(' + (i - 1) + ')').classList.add('done')
 			}
 		}
 		if(tier > 0){
@@ -420,8 +432,16 @@
 		return Math.pow(2, parseInt(val, 10) - 1)
 	}
 
-	$(document).on('click', '.toggle-unwanted', mazs.toggleWanted)
-	$(document).on('click', '.tier', mazs.toggleDone)
+	document.addEventListener('click', function(e) {
+		if (e.target.classList.contains('toggle-unwanted')) {
+			mazs.toggleWanted.bind(e.target)()
+		} else if (e.target.classList.contains('tier')) {
+			mazs.toggleDone.bind(e.target)()
+		}
+	})
+
+	// $(document).on('click', '.toggle-unwanted', mazs.toggleWanted)
+	// $(document).on('click', '.tier', mazs.toggleDone)
 
 	window.Mazs = mazs
 })()

@@ -41,7 +41,6 @@
 		</div>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<script src="fractals.js"></script>
 	<script src="Mazs.js"></script>
 	<script src="strikes.js"></script>
@@ -49,21 +48,21 @@
 		if(window.location.href.indexOf('lang=') !== -1){
 			Mazs.setLanguage(window.location.href.split('lang=')[1])
 		}
-		$(document).ready(function(){
-			$('#today-header').text(Mazs.titleHeaders.today[Mazs.lang])
-			$('#tomorrow-header').text(Mazs.titleHeaders.tomorrow[Mazs.lang])
-			$('#ar-header').text(Mazs.titleHeaders.ar[Mazs.lang])
-			$('.ar-input').keyup(function(e){
+		document.addEventListener('load', function(){
+			document.querySelector('#today-header').innerText = Mazs.titleHeaders.today[Mazs.lang]
+			document.querySelector('#tomorrow-header').innerText = Mazs.titleHeaders.tomorrow[Mazs.lang]
+			document.querySelector('#ar-header').innerText = Mazs.titleHeaders.ar[Mazs.lang]
+			document.querySelector('.ar-input').addEventListener('keyup', function(e){
 				e.preventDefault()
-				let val = +$(this).val()
+				let val = +this.value
 				if(!val) val = 0
-				$('.ar-result').text(Mazs.calcAr(val))
+				document.querySelector('.ar-result').innerText = Mazs.calcAr(val)
 			})
-			$('.ar-input').change(function(e){
+			document.querySelector('.ar-input').addEventListener('change', function(e){
 				e.preventDefault()
-				let val = +$(this).val()
+				let val = +this.value
 				if(!val) val = 0
-				$('.ar-result').text(Mazs.calcAr(val))
+				document.querySelector('.ar-result').text = Mazs.calcAr(val)
 			})
 			Mazs.getFractals()
 			// Mazs.getTomorrowsFractals()
