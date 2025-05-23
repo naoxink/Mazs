@@ -413,6 +413,7 @@
 			}
 			tier.classList[isDone ? 'remove' : 'add']('done')
 		})
+		console.log(index, clicked.innerHTML)
 		if(index >= 0){
 			mazs.saveTierDone(fractalID, index + 1)
 		}else{
