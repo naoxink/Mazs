@@ -408,6 +408,9 @@
 			if (clicked === tier) {
 				index = i
 				passed = true
+				if (isDone) {
+					return false
+				}
 			}
 			tier.classList.add('done')
 		})
