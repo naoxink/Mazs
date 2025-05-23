@@ -206,7 +206,7 @@
 					.replace('::unwanted-text::', mazs.unwantedtext.yes[_this.lang])
 					.replace('::class-unwanted::', 'yes')
 		}
-		$(section).innerHTML = $(section).innerHTML = html
+		section.innerHTML = section.innerHTML = html
 	}
 	mazs.printGroup = function(data, typeFractal) {
 		var _this = this		
