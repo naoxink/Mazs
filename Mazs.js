@@ -401,6 +401,15 @@
 
 	// Marcar tier como hecho
 	mazs.toggleDone = function(e){
+		const achi = this.closest('.achievement-container')
+		const isDone = this.classList.contains('done')
+		achi.querySelectorAll('.tier').forEach((tier, index) => {
+			if (e.target === tier) {
+				console.log('Este es!', tier)
+			}
+		})
+		return false
+
 		var fractalID = this.closest('.achievement-container').getAttribute('data-fractalid')
 		if(this.classList.contains('done')){
 			var tier = mazs.getElementIndex(this.closest('.achievement-container'), '.tier', this) + 1
