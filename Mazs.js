@@ -402,16 +402,14 @@
 		let passed = false
 		let index = -1
 		let tiers = [...achi.querySelectorAll('.tier')]
-		if (isDone) {
-			tiers.reverse()
-		}
 		tiers.forEach((tier, i) => {
+			tier.classList.remove('done')
 			if (passed) return false
 			if (clicked === tier) {
 				index = i
 				passed = true
 			}
-			tier.classList[isDone ? 'remove' : 'add']('done')
+			tier.classList.add('done')
 		})
 		console.log(index, clicked.innerHTML)
 		if(index >= 0){
