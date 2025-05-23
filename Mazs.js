@@ -366,22 +366,16 @@
 		var key = 'fractal-unwanted-' + fractalID
 		if(localStorage.getItem(key)){
 			localStorage.removeItem(key)
-			this.closest('.achievement-container')
-				.classList
-					.remove('unwanted')
-			this.classList
-					.remove('no')
-					.add('yes')
-				.innerText = mazs.unwantedtext.yes[mazs.lang]
+			this.closest('.achievement-container').classList.remove('unwanted')
+			this.classList.remove('no')
+			this.classList.add('yes')
+			this.classList.innerText = mazs.unwantedtext.yes[mazs.lang]
 		}else{
 			localStorage.setItem(key, true)
-			this.closest('.achievement-container')
-				.classList
-					.add('unwanted')
-			this.classList
-				.remove('yes')
-				.add('no')
-				.text(mazs.unwantedtext.no[mazs.lang])
+			this.closest('.achievement-container').classList.add('unwanted')
+			this.classList.remove('yes')
+			this.classList.add('no')
+			this.text(mazs.unwantedtext.no[mazs.lang])
 		}
 	}
 
@@ -401,10 +395,11 @@
 
 	// Marcar tier como hecho
 	mazs.toggleDone = function(e){
+		const clicked = this
 		const achi = this.closest('.achievement-container')
 		const isDone = this.classList.contains('done')
 		achi.querySelectorAll('.tier').forEach((tier, index) => {
-			if (e.target === tier) {
+			if (clicked === tier) {
 				console.log('Este es!', tier)
 			}
 		})
