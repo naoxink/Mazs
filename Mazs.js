@@ -359,7 +359,7 @@
 
 	// Marca un fractal como 'No deseado'
 	mazs.toggleWanted = function(e){
-		var fractalID = $(this).parents('.achievement-container').data('fractalid')
+		var fractalID = this.closest('.achievement-container').getAttribute('data-fractalid')
 		if(!fractalID){
 			return false
 		}
@@ -435,13 +435,10 @@
 	document.addEventListener('click', function(e) {
 		if (e.target.classList.contains('toggle-unwanted')) {
 			mazs.toggleWanted.bind(e.target)()
-		} else if (e.target.classList.contains('tier')) {
+		} else if (e.target.classList.contains('tier') || e.target.closest('.tier')) {
 			mazs.toggleDone.bind(e.target)()
 		}
 	})
-
-	// $(document).on('click', '.toggle-unwanted', mazs.toggleWanted)
-	// $(document).on('click', '.tier', mazs.toggleDone)
 
 	window.Mazs = mazs
 })()
