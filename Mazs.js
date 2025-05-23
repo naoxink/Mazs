@@ -411,8 +411,7 @@
 			}
 			tier.classList.add('done')
 		})
-		console.log(index, clicked.innerHTML)
-		if(index >= 0){
+		if(index > 0){
 			mazs.saveTierDone(fractalID, index + 1)
 		}else{
 			localStorage.removeItem('fractal-tier-done-' + fractalID)
