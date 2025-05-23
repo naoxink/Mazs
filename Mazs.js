@@ -81,7 +81,7 @@
 			}
 		},
 		'noop': function(){  },
-		'achievementTemplate': $('#achievement-template').html()
+		'achievementTemplate': document.querySelector('#achievement-template').innerHTML
 	}
 
 	// Establece el idioma
