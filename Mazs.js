@@ -375,7 +375,7 @@
 			this.closest('.achievement-container').classList.add('unwanted')
 			this.classList.remove('yes')
 			this.classList.add('no')
-			this.text(mazs.unwantedtext.no[mazs.lang])
+			this.innerText = mazs.unwantedtext.no[mazs.lang]
 		}
 	}
 
@@ -444,11 +444,10 @@
 	}
 
 	document.addEventListener('click', function(e) {
-		console.log(e.target.closest('.tier'))
 		if (e.target.classList.contains('toggle-unwanted')) {
 			mazs.toggleWanted.bind(e.target)()
 		} else if (e.target.classList.contains('tier') || e.target.closest('.tier')) {
-			mazs.toggleDone.bind(e.target)()
+			mazs.toggleDone.bind(e.target.classList.contains('tier') ? e.target : e.target.closest('.tier'))()
 		}
 	})
 
