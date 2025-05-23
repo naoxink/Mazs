@@ -398,10 +398,17 @@
 		const clicked = this
 		const achi = this.closest('.achievement-container')
 		const isDone = this.classList.contains('done')
-		achi.querySelectorAll('.tier').forEach((tier, index) => {
+		let passed = false
+		let tiers = [...achi.querySelectorAll('.tier')]
+		if (isDone) {
+			tiers.reverse()
+		}
+		tiers.forEach(tier => {
+			if (passed) return false
 			if (clicked === tier) {
-				console.log('Este es!', tier)
+				passed = true
 			}
+			tier.classList[isDone ? 'remove' : 'add']('done')
 		})
 		return false
 
@@ -437,6 +444,7 @@
 	}
 
 	document.addEventListener('click', function(e) {
+		console.log(e.target.closest('.tier'))
 		if (e.target.classList.contains('toggle-unwanted')) {
 			mazs.toggleWanted.bind(e.target)()
 		} else if (e.target.classList.contains('tier') || e.target.closest('.tier')) {
