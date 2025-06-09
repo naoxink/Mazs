@@ -1,27 +1,28 @@
 const fractalNamesUnic = [
 {"en":"Volcanic", "es":"Fractal volcánico", lvls: [1, 19, 28, 52, 92]},
-{"en":"Uncategorized", "es":"Fractal sin clasificar", lvls: [2, 36, 62, 79, 91]},
+{"en":"Uncategorized", "es":"Fractal sin clasificar", lvls: [2, 36, 62, 79]},
 {"en":"Snowblind", "es":"Fractal de la ceguera de la nieve", lvls: [3, 27, 51, 86]},
 {"en":"Urban Battleground", "es":"Fractal del campo de batalla urbano", lvls: [4, 31, 57, 85]},
 {"en":"Swampland", "es":"Fractal del cenagal", lvls: [5, 32, 56, 77, 89]},
 {"en":"Cliffside", "es":"Fractal del despeñadero", lvls: [6, 46, 68, 94]},
 {"en":"Aquatic Ruins", "es":"Fractal de las Ruinas Acuáticas", lvls: [7, 26, 61, 76]},
 {"en":"Underground Facility", "es":"Fractal de la instalación subterránea", lvls: [8, 29, 53, 81]},
-{"en":"Molten Furnace", "es":"Fractal de la fragua fundida", lvls: [9, 17, 39, 58, 83]},
+{"en":"Molten Furnace", "es":"Fractal de la fragua fundida", lvls: [9, 39, 58, 83]},
 {"en":"Molten Boss", "es":"Fractal de los jefes fundidos", lvls: [10, 40, 69, 90]},
 {"en":"Deepstone", "es":"Fractal de Rocahonda", lvls: [11, 33, 67, 84]},
 {"en":"Siren's Reef", "es":"Fractal del Arrecife de la Sirena", lvls: [12, 37, 54, 78]},
-{"en":"Chaos", "es":"Fractal del Caos", lvls: [13, 30, 38, 63, 88]},
-{"en":"Aetherblade", "es":"Fractal de los filoetéreos", lvls: [14, 45, 65, 70, 93]},
+{"en":"Chaos", "es":"Fractal del Caos", lvls: [13, 30, 63, 88]},
+{"en":"Aetherblade", "es":"Fractal de los filoetéreos", lvls: [14, 45, 65, 93]},
 {"en":"Thaumanova Reactor", "es":"Fractal del reactor taumanova", lvls: [15, 34, 55, 64, 82]},
 {"en":"Twilight Oasis", "es":"Fractal del Oasis del Crepúsculo", lvls: [16, 41, 59, 87]},
-{"en":"Captain Mai Trin Boss", "es":"Fractal de la jefa Capitana Mai Trin", lvls: [18, 42, 71, 95]},
+{"en":"Captain Mai Trin Boss", "es":"Fractal de la jefa Capitana Mai Trin", lvls: [18, 42, 71, 91]},
 {"en":"Solid Ocean", "es":"Fractal del océano sólido", lvls: [20, 35, 44, 60, 80]},
 {"en":"Nightmare", "es":"Fractal de la Pesadilla", lvls: [22, 47, 72, 96]},
 {"en":"Shattered Observatory", "es":"Fractal del Observatorio Asolado", lvls: [23, 48, 73, 97]},
 {"en":"Sunqua Peak", "es":"Pico de Sunqua", lvls: [24, 49, 74, 98]},
 {"en":"Silent Surf", "es": "Oleaje silencioso", lvls: [21, 43, 66, 99]},
 {"en":"Lonely Tower", "es": "Torre solitaria", lvls: [25, 50, 75, 100]},
+{"en":"Kinfall", "es": "Hecatombe Allegada", lvls: [17, 38, 70, 95]}
 ];
 
 const fractalList = {
