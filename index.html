@@ -39,11 +39,27 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="container">
+			<div class="section">
+				<h3 class="section-title">Qué hacer</h3>
+				<div class="event" data-template>
+					<div class="title">::nombre::</div>
+					<small class="timer">::hora:: (en ::timeleft:: minutos)</small>
+					<div class="tags">
+						<div class="tag expansion">::expansion::</div>
+						<div class="tag categoria">::categoria::</div>
+					</div>
+				</div>
+				<div class="lista-que-hacer"></div>
+			</div>
+		</div>
 	</div>
 
 	<script src="fractals.js"></script>
 	<script src="Mazs.js"></script>
 	<script src="strikes.js"></script>
+	<script src="metas.js"></script>
 	<script>
 		if(window.location.href.indexOf('lang=') !== -1){
 			Mazs.setLanguage(window.location.href.split('lang=')[1])
@@ -67,6 +83,10 @@
 			Mazs.getFractals()
 			// Mazs.getTomorrowsFractals()
 			Mazs.getDailyStrikes()
+
+			// Metas más próximos
+			mostrarQueHacer()
+			setInterval(mostrarQueHacer, 1000)
 		})
 	</script>
 </body>

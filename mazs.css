@@ -199,3 +199,39 @@ a.linkFractal {
 		float: none;
 	}
 }
+
+div[data-template] {
+	display: none;
+}
+
+.event {
+	position: relative;
+	border: 1px solid rgba(0, 0, 0, .1);
+}
+
+.event .title {
+	padding: .5em;
+	font-size: 1.2em;
+	font-weight: bold;
+	display: inline-block;
+}
+
+.event .timer {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+.event .tags {
+	flex-basis: 100%;
+	padding: 5px 10px;
+	background-color: #EEE;
+	display: flex;
+}
+
+.event .tags .tag {
+	margin-left: 5px;
+	padding: 2px 5px;
+	border: 1px solid rgba(0, 0, 0, .1);
+	background-color: #fff;
+}
