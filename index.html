@@ -30,18 +30,6 @@
 
 		<div class="container">
 			<div class="section">
-				<h3 class="section-title" id="ar-header"></h3>
-				<div class="section text-center">
-					<span class="ar-plus text-ar">+</span> <input type="text" class="ar-input" maxlength="2" value="1">
-					<div class="ar-result-container">
-						<img src="https://wiki-es.guildwars2.com/images/thumb/f/f2/Infusi%C3%B3n_de_agon%C3%ADa.png/40px-Infusi%C3%B3n_de_agon%C3%ADa.png" alt="+1" title="+1"> x <span class="ar-result text-ar">1</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="container">
-			<div class="section">
 				<h3 class="section-title">Qué hacer</h3>
 				<div class="event" data-template>
 					<div class="title">::nombre::</div>
@@ -66,24 +54,9 @@
 		}
 		window.addEventListener('load', function(){
 			document.querySelector('#today-header').innerText = Mazs.titleHeaders.today[Mazs.lang]
-			// document.querySelector('#tomorrow-header').innerText = Mazs.titleHeaders.tomorrow[Mazs.lang]
-			document.querySelector('#ar-header').innerText = Mazs.titleHeaders.ar[Mazs.lang]
-			document.querySelector('.ar-input').addEventListener('keyup', function(e){
-				e.preventDefault()
-				let val = +this.value
-				if(!val) val = 0
-				document.querySelector('.ar-result').innerText = Mazs.calcAr(val)
-			})
-			document.querySelector('.ar-input').addEventListener('change', function(e){
-				e.preventDefault()
-				let val = +this.value
-				if(!val) val = 0
-				document.querySelector('.ar-result').text = Mazs.calcAr(val)
-			})
 			Mazs.getFractals()
 			// Mazs.getTomorrowsFractals()
 			Mazs.getDailyStrikes()
-
 			// Metas más próximos
 			mostrarQueHacer()
 			setInterval(mostrarQueHacer, 1000)
