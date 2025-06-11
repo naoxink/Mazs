@@ -112,6 +112,7 @@
 			document.querySelector('#today-strikes-header').innerText = res.name
 			// Obtener datos de las strikes
 			mazs.getFractalInfo(mazs.isTomorrow ? res.tomorrow.map(i => i.id) : res.achievements, function(details){
+				document.querySelector('#daily-strikes').innerHTML = ''
 				details.forEach(detail => mazs.printDailyStrike(res.icon, detail))
 			})
 		})
