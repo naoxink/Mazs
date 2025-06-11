@@ -17,6 +17,10 @@
 	</div>
 
 	<div class="the-father-of-containers">
+
+		<a href="javascript:void(0)" class="today">Hoy</a>
+		<a href="javascript:void(0)" class="tomorrow">Mañana</a>
+
 		<div class="container">
 			<div id="today-header" class="header"></div>
 			<div class="section" id="fractal-tiers"></div>
@@ -54,6 +58,31 @@
 			Mazs.setLanguage(urlParams.get('lang'))
 		}
 		window.addEventListener('load', function(){
+			if (Mazs.isTomorrow()) {
+				document.querySelector('.today').classList.remove('active')
+				document.querySelector('.tomorrow').classList.add('active')
+			} else {
+				document.querySelector('.today').classList.add('active')
+				document.querySelector('.tomorrow').classList.remove('active')
+			}
+			document.querySelector('.today').addEventListener('click', function() {
+				Mazs.setToday()
+				document.querySelector('.today').classList.add('active')
+				document.querySelector('.tomorrow').classList.remove('active')
+				document.querySelector('#today-header').innerText = Mazs.titleHeaders.today[Mazs.lang]
+				Mazs.getFractals()
+				// Mazs.getTomorrowsFractals()
+				Mazs.getDailyStrikes()
+			})
+			document.querySelector('.tomorrow').addEventListener('click', function() {
+				Mazs.setTomorrow()
+				document.querySelector('.today').classList.remove('active')
+				document.querySelector('.tomorrow').classList.add('active')
+				document.querySelector('#today-header').innerText = Mazs.titleHeaders.tomorrow[Mazs.lang]
+				Mazs.getFractals()
+				// Mazs.getTomorrowsFractals()
+				Mazs.getDailyStrikes()
+			})
 			document.querySelector('#today-header').innerText = Mazs.titleHeaders.today[Mazs.lang]
 			Mazs.getFractals()
 			// Mazs.getTomorrowsFractals()

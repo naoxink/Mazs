@@ -1,8 +1,4 @@
 ;(function(){
-	// Obtiene si la URL tiene el parámetro 'tomorrow'
-	const urlParams = new URLSearchParams(window.location.search)
-	const isTomorrow = urlParams.has('tomorrow')
-
 	// Inicialización de objeto
 	var mazs = {
 		'titleHeaders': {
@@ -87,6 +83,11 @@
 		'noop': function(){  },
 		'achievementTemplate': document.querySelector('#achievement-template').innerHTML
 	}
+	
+	mazs.isTomorrow = new URLSearchParams(window.location.search).has('tomorrow')
+
+	mazs.setToday = () => mazs.isTomorrow = false
+	mazs.setTomorrow = () => mazs.isTomorrow = true
 
 	// Establece el idioma
 	mazs.setLanguage = function(lang){
