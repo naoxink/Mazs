@@ -247,16 +247,13 @@ div[data-template] {
 	margin: 5px;
 	padding: 10px 20px;
 	border: none;
-	background-color: #666;
+	background-color: #AAA;
 	color: #333;
 	font-size: 1em;
 	cursor: pointer;
 }
 
-.buttons button:hover {
-	background-color: #0f7a9c;
-}
-
-.buttons button.active {
-	background-color: #0f7a9c;
+.buttons button:hover, .buttons button.active {
+	color: white;
+	background-color: mediumpurple;
 }
