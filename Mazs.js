@@ -1,4 +1,8 @@
 ;(function(){
+	// Obtiene si la URL tiene el parámetro 'tomorrow'
+	const urlParams = new URLSearchParams(window.location.search)
+	const isTomorrow = urlParams.has('tomorrow')
+
 	// Inicialización de objeto
 	var mazs = {
 		'titleHeaders': {
@@ -31,11 +35,11 @@
 			'es': 'recomendado',
 			'de': 'empfohlenes'
 		},
-    'regexs': {
-      'en': /Daily Tier [1-4]/i,
-      'es': /de rango [1-4] del día/i,
-      'de': /(^Täglicher Abschluss: |, Rang [1-4]$)/gi
-    },
+		'regexs': {
+		  'en': /Daily Tier [1-4]/i,
+		  'es': /de rango [1-4] del día/i,
+		  'de': /(^Täglicher Abschluss: |, Rang [1-4]$)/gi
+		},
 		'headers': {
 			'fractalTiers': {
 				'en': 'Daily fractal tiers',
@@ -94,8 +98,15 @@
 		fetch(url).then(res => res.json()).then(callback)
 	}
 
+	const addLatest = url => {
+		if (!isTomorrow) {
+			return url;
+		}
+		return url + ('?' === -1 ? '?' : '&') + 'v=latest'
+	}
+
 	mazs.getDailyStrikes = function() {
-		mazs.getData(this.urls.DAILY_STRIKES_LIST + '?lang=' + this.lang, res => {
+		mazs.getData(addLatest(this.urls.DAILY_STRIKES_LIST + '?lang=' + this.lang), res => {
 			if (!res) return false
 			document.querySelector('#today-strikes-header').innerText = res.name
 			// Obtener datos de las strikes
@@ -294,7 +305,7 @@
 		callback = callback || this.noop
 		var _this = this
 		var recommendedIDs = [  ]
-		this.getData(this.urls.FRACTALS_LIST, function(data){
+		this.getData(addLatest(this.urls.FRACTALS_LIST), function(data){
 			_this.getFractalInfo(data.achievements, function(details){
 				document.querySelector('#fractal-tiers').innerHTML = '<h3 class="section-title">' + _this.headers.fractalTiers[_this.lang] + '</h3>'
 				document.querySelector('#fractal-recommended').innerHTML = '<h3 class="section-title">' + _this.headers.fractalRecommended[_this.lang] + '</h3>'
