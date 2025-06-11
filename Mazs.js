@@ -110,7 +110,7 @@
 			if (!res) return false
 			document.querySelector('#today-strikes-header').innerText = res.name
 			// Obtener datos de las strikes
-			mazs.getFractalInfo(res.achievements, function(details){
+			mazs.getFractalInfo(isTomorrow ? res.achievements.tomorrow.map(i => i.id) : res.achievements, function(details){
 				details.forEach(detail => mazs.printDailyStrike(res.icon, detail))
 			})
 		})
@@ -306,7 +306,7 @@
 		var _this = this
 		var recommendedIDs = [  ]
 		this.getData(addLatest(this.urls.FRACTALS_LIST), function(data){
-			_this.getFractalInfo(data.achievements, function(details){
+			_this.getFractalInfo(isTomorrow ? data.achievements.tomorrow.map(i => i.id) : data.achievements, function(details){
 				document.querySelector('#fractal-tiers').innerHTML = '<h3 class="section-title">' + _this.headers.fractalTiers[_this.lang] + '</h3>'
 				document.querySelector('#fractal-recommended').innerHTML = '<h3 class="section-title">' + _this.headers.fractalRecommended[_this.lang] + '</h3>'
 				
