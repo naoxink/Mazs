@@ -102,7 +102,7 @@
 		if (!isTomorrow) {
 			return url;
 		}
-		return url + ('?' === -1 ? '?' : '&') + 'v=latest'
+		return url + (url.indexOf('?') === -1 ? '?' : '&') + 'v=latest'
 	}
 
 	mazs.getDailyStrikes = function() {
