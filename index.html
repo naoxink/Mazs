@@ -58,7 +58,7 @@
 			Mazs.setLanguage(urlParams.get('lang'))
 		}
 		window.addEventListener('load', function(){
-			if (Mazs.isTomorrow()) {
+			if (Mazs.isTomorrow) {
 				document.querySelector('.today').classList.remove('active')
 				document.querySelector('.tomorrow').classList.add('active')
 			} else {
