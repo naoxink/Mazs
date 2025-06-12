@@ -37,8 +37,8 @@
 		<div class="container">
 			<div class="section">
 				<h3 class="section-title">Qué hacer <small>(eventos próximos en 16 minutos)</small></h3>
-				<div class="event" style="::style::" data-template>
-					<div class="title">::nombre::</div>
+				<div class="event" data-template>
+					<div class="title" style="color: ::color::;">::nombre::</div>
 					<small class="timer">::hora:: (en ::timeleft:: minutos)</small>
 					<div class="tags">
 						<div class="tag expansion">::expansion::</div>
@@ -91,7 +91,7 @@
 			Mazs.getDailyStrikes()
 			// Metas más próximos
 			mostrarQueHacer(16)
-			setInterval(mostrarQueHacer, 1000)
+			setInterval(() => mostrarQueHacer(16), 1000)
 		})
 	</script>
 </body>

@@ -119,7 +119,7 @@ function mostrarQueHacer(offsetMinutos = 15) {
         .replace('::expansion::', meta.expansion)
         .replace('::categoria::', meta.categoria)
         .replace('::timeleft::', meta.en)
-        .replace('::style::', `background-color:${meta.color}`)
+        .replace('::color::', `${meta.color}`)
         return html;
     }, '')
     document.querySelector('.lista-que-hacer').innerHTML = htmlLista
