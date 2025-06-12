@@ -110,7 +110,10 @@ function metasProximos(metas, rangoMin = 15) {
 }
 
 function mostrarQueHacer(offsetMinutos = 15) {
-    const proximosMetas = metasProximos(metas, offsetMinutos)
+    let proximosMetas = metasProximos(metas, offsetMinutos)
+	while (proximosMetas.length < 5) {
+		proximosMetas = metasProximos(metas, offsetMinutos + 15)
+	}
     const template = document.querySelector('div[data-template]').outerHTML.replace(' data-template', '')
     const htmlLista = proximosMetas.reduce((html, meta) => {
         html += template
