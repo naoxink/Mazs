@@ -66,50 +66,61 @@ function generarHorasCiclo(inicio, intervaloMinutos) {
   return resultado;
 }
 
+function calcularColorFondo(en, max = 16, min = 0) {
+    // De verde (#a8e063) a rojo (#ff5858)
+    const percent = Math.max(0, Math.min(1, (en - min) / (max - min)));
+    const r = Math.round(255 * (1 - percent) + 168 * percent);
+    const g = Math.round(88 * (1 - percent) + 224 * percent);
+    const b = Math.round(88 * (1 - percent) + 99 * percent);
+    return `rgb(${r},${g},${b})`;
+}
+
 function metasProximos(metas, rangoMin = 15) {
-  const ahora = new Date();
-  const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
-  const eventosCercanos = [];
+    const ahora = new Date();
+    const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
+    const eventosCercanos = [];
 
-  for (const expansion in metas) {
-    for (const categoria in metas[expansion]) {
-      for (const evento in metas[expansion][categoria]) {
-        const horas = metas[expansion][categoria][evento];
-        for (const hora of horas) {
-          const [h, m] = hora.split(':').map(Number);
-          const minutosEvento = h * 60 + m;
-          let diff = minutosEvento - minutosAhora;
-          if (diff < 0) diff += 1440; // para eventos al día siguiente
-          if (diff >= 0 && diff <= rangoMin) {
-            eventosCercanos.push({
-              expansion,
-              categoria,
-              evento,
-              hora,
-              en: diff
-            });
-          }
+    for (const expansion in metas) {
+        for (const categoria in metas[expansion]) {
+            for (const evento in metas[expansion][categoria]) {
+                const horas = metas[expansion][categoria][evento];
+                for (const hora of horas) {
+                    const [h, m] = hora.split(':').map(Number);
+                    const minutosEvento = h * 60 + m;
+                    let diff = minutosEvento - minutosAhora;
+                    if (diff < 0) diff += 1440; // para eventos al día siguiente
+                    if (diff >= 0 && diff <= rangoMin) {
+                        eventosCercanos.push({
+                            expansion,
+                            categoria,
+                            evento,
+                            hora,
+                            en: diff,
+                            color: calcularColorFondo(diff, rangoMin, 0)
+                        });
+                    }
+                }
+            }
         }
-      }
     }
-  }
 
-  // Ordena por tiempo restante
-  eventosCercanos.sort((a, b) => a.en - b.en);
-  return eventosCercanos;
+    // Ordena por tiempo restante
+    eventosCercanos.sort((a, b) => a.en - b.en);
+    return eventosCercanos;
 }
 
 function mostrarQueHacer(offsetMinutos = 15) {
-	const proximosMetas = metasProximos(metas, offsetMinutos)
-	const template = document.querySelector('div[data-template]').outerHTML.replace(' data-template', '')
-	const htmlLista = proximosMetas.reduce((html, meta) => {
-		html += template
-		.replace('::nombre::', meta.evento)
-		.replace('::hora::', meta.hora)
-		.replace('::expansion::', meta.expansion)
-		.replace('::categoria::', meta.categoria)
-		.replace('::timeleft::', meta.en)
-		return html;
-	}, '')
-	document.querySelector('.lista-que-hacer').innerHTML = htmlLista
+    const proximosMetas = metasProximos(metas, offsetMinutos)
+    const template = document.querySelector('div[data-template]').outerHTML.replace(' data-template', '')
+    const htmlLista = proximosMetas.reduce((html, meta) => {
+        html += template
+        .replace('::nombre::', meta.evento)
+        .replace('::hora::', meta.hora)
+        .replace('::expansion::', meta.expansion)
+        .replace('::categoria::', meta.categoria)
+        .replace('::timeleft::', meta.en)
+        .replace('<div class="event"', `<div class="event" style="background-color:${meta.color}"`)
+        return html;
+    }, '')
+    document.querySelector('.lista-que-hacer').innerHTML = htmlLista
 }
