@@ -36,10 +36,10 @@
 
 		<div class="container">
 			<div class="section">
-				<h3 class="section-title">Qué hacer <small>(eventos próximos en 16 minutos)</small></h3>
+				<h3 class="section-title">Qué hacer <small>(eventos próximos)</small></h3>
 				<div class="event" data-template>
 					<div class="title" style="color: ::color::;">::nombre::</div>
-					<small class="timer">::hora:: (en ::timeleft:: minutos)</small>
+					<small class="timer"  style="color: ::color::;">::hora:: (en ::timeleft:: minutos)</small>
 					<div class="tags">
 						<div class="tag expansion">::expansion::</div>
 						<div class="tag categoria">::categoria::</div>
@@ -90,8 +90,9 @@
 			// Mazs.getTomorrowsFractals()
 			Mazs.getDailyStrikes()
 			// Metas más próximos
-			mostrarQueHacer(16)
-			setInterval(() => mostrarQueHacer(16), 1000)
+			const timeRange = 31;
+			mostrarQueHacer(timeRange)
+			setInterval(() => mostrarQueHacer(timeRange), 1000)
 		})
 	</script>
 </body>
