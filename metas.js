@@ -49,6 +49,81 @@ const metas = {
 	}
 }
 
+const eventConfig = {
+    "Golem Mark II": {
+        "waypoint": ""
+    },
+    "Gran sierpe de la selva": {
+        "waypoint": ""
+    },
+    "Garra de jormag": {
+        "waypoint": ""
+    },
+    "Behemot de las sombras": {
+        "waypoint": ""
+    },
+    "Almirante Taidha Covington": {
+        "waypoint": ""
+    },
+    "Chamán Svanir": {
+        "waypoint": ""
+    },
+    "Megadestructor": {
+        "waypoint": ""
+    },
+    "Elemental de fuego": {
+        "waypoint": ""
+    },
+    "El asolador": {
+        "waypoint": ""
+    },
+    "Modniir Ulgoth": {
+        "waypoint": ""
+    },
+    "Tormenta Dracónica": {
+        "waypoint": ""
+    },
+    "Drakkar": {
+        "waypoint": ""
+    },
+    "Defiende la fortaleza de Bjora": {
+        "waypoint": ""
+    },
+    "Octohiedra": {
+        "waypoint": ""
+    },
+    "Gerente Chack": {
+        "waypoint": ""
+    },
+    "Ataque de los filoetéreos": {
+        "waypoint": ""
+    },
+    "Apagón en Kaineng": {
+        "waypoint": ""
+    },
+    "Muerte del dragón": {
+        "waypoint": ""
+    },
+    "Accediendo a la torre del brujo": {
+        "waypoint": ""
+    },
+    "La Defensa de Amnytas": {
+        "waypoint": ""
+    },
+    "Convergencia: Zona exterior de Nayos": {
+        "waypoint": ""
+    },
+    "De niebla y monstruos": {
+        "waypoint": ""
+    },
+    "Un viaje titánico": {
+        "waypoint": ""
+    },
+    "Convergencia: Monte Balrior": {
+        "waypoint": ""
+    },
+}
+
 function generarHorasCiclo(inicio, intervaloMinutos) {
   const resultado = [];
   const [hInicio, mInicio] = inicio.split(':').map(Number);
@@ -116,6 +191,8 @@ function mostrarQueHacer(offsetMinutos = 15) {
 	}
     const template = document.querySelector('div[data-template]').outerHTML.replace(' data-template', '')
     const htmlLista = proximosMetas.reduce((html, meta) => {
+        const config = eventConfig[meta.evento] || {};
+        const waypoint = config.waypoint || "";
         html += template
         .replace('::nombre::', meta.evento)
         .replace('::hora::', meta.hora)
@@ -123,7 +200,30 @@ function mostrarQueHacer(offsetMinutos = 15) {
         .replace('::categoria::', meta.categoria)
         .replace('::timeleft::', meta.en)
         .replace('::color::', `${meta.color}`)
+        .replace('::waypoint::', `<button data-code="${waypoint}">${waypoint}</button>`)
         return html;
     }, '')
     document.querySelector('.lista-que-hacer').innerHTML = htmlLista
 }
+
+document.addEventListener('click', async function (e) {
+    let el = e.target;
+    while (el && el !== document) {
+        if (el.hasAttribute('data-code')) {
+            const text = el.getAttribute('data-code')
+            try {
+                await navigator.clipboard.writeText(text)
+            } catch (err) {
+                // fallback for older browsers
+                const textarea = document.createElement('textarea')
+                textarea.value = text
+                document.body.appendChild(textarea)
+                textarea.select()
+                document.execCommand('copy')
+                document.body.removeChild(textarea)
+            }
+            break;
+        }
+        el = el.parentElement;
+    }
+});

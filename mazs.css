@@ -259,3 +259,12 @@ div[data-template] {
 	color: white;
 	background-color: mediumpurple;
 }
+
+.waypoint > button {
+	background-color: #169bca;
+	color: white;
+}
+
+.waypoint > button:hover {
+	background-color: #117aa0;
+}
