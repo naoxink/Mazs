@@ -260,6 +260,10 @@ div[data-template] {
 	background-color: mediumpurple;
 }
 
+.waypoint > button[data-code=""] {
+	display: none;
+}
+
 .waypoint > button {
 	background-color: #169bca;
 	color: white;
