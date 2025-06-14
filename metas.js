@@ -51,13 +51,13 @@ const metas = {
 
 const eventConfig = {
     "Golem Mark II": {
-        "waypoint": ""
+        "waypoint": "[&BNQCAAA=]"
     },
     "Gran sierpe de la selva": {
         "waypoint": "[&BEEFAAA=]"
     },
     "Garra de jormag": {
-        "waypoint": ""
+        "waypoint": "[&BHoCAAA=]"
     },
     "Behemot de las sombras": {
         "waypoint": "[&BPcAAAA=]"
@@ -81,46 +81,46 @@ const eventConfig = {
         "waypoint": "[&BLAAAAA=]"
     },
     "Tormenta Dracónica": {
-        "waypoint": ""
+        "waypoint": "[&BAkMAAA=]"
     },
     "Drakkar": {
-        "waypoint": ""
+        "waypoint": "[&BDkMAAA=]"
     },
     "Defiende la fortaleza de Bjora": {
-        "waypoint": ""
+        "waypoint": "[&BCcMAAA=]"
     },
     "Octohiedra": {
-        "waypoint": ""
+        "waypoint": "[&BAIIAAA=]"
     },
     "Gerente Chack": {
-        "waypoint": ""
+        "waypoint": "[&BPUHAAA=]"
     },
     "Ataque de los filoetéreos": {
-        "waypoint": ""
+        "waypoint": "[&BGUNAAA=]"
     },
     "Apagón en Kaineng": {
-        "waypoint": ""
+        "waypoint": "[&BBkNAAA=]"
     },
     "Muerte del dragón": {
-        "waypoint": ""
+        "waypoint": "[&BKIMAAA=]"
     },
     "Accediendo a la torre del brujo": {
-        "waypoint": ""
+        "waypoint": "[&BL4NAAA=]"
     },
     "La Defensa de Amnytas": {
-        "waypoint": ""
+        "waypoint": "[&BDQOAAA=]"
     },
     "Convergencia: Zona exterior de Nayos": {
-        "waypoint": ""
+        "waypoint": "[&BB8OAAA=]"
     },
     "De niebla y monstruos": {
-        "waypoint": ""
+        "waypoint": "[&BCoPAAA=]"
     },
     "Un viaje titánico": {
-        "waypoint": ""
+        "waypoint": "[&BGEPAAA=]"
     },
     "Convergencia: Monte Balrior": {
-        "waypoint": ""
+        "waypoint": "[&BK4OAAA=]"
     },
 }
 
