@@ -265,6 +265,7 @@ div[data-template] {
 }
 
 .waypoint > button {
+	border: 1px solid transparent;
 	background-color: #169bca;
 	color: white;
 }
