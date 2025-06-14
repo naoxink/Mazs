@@ -9,7 +9,7 @@ const metas = {
 			"Almirante Taidha Covington": generarHorasCiclo('14:00', 180),
 			"Chamán Svanir": generarHorasCiclo('14:15', 160),
 			"Megadestructor": generarHorasCiclo('14:30', 180),
-			"Elemental de fuego": generarHorasCiclo('14:45', 160),
+			"Elemental de fuego": generarHorasCiclo('14:45', 120),
 			"El asolador": generarHorasCiclo('15:00', 180),
 			"Modniir Ulgoth": generarHorasCiclo('15:30', 180),
 		},
