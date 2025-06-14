@@ -54,31 +54,31 @@ const eventConfig = {
         "waypoint": ""
     },
     "Gran sierpe de la selva": {
-        "waypoint": ""
+        "waypoint": "[&BEEFAAA=]"
     },
     "Garra de jormag": {
         "waypoint": ""
     },
     "Behemot de las sombras": {
-        "waypoint": ""
+        "waypoint": "[&BPcAAAA=]"
     },
     "Almirante Taidha Covington": {
-        "waypoint": ""
+        "waypoint": "[&BKgBAAA=]"
     },
     "Chamán Svanir": {
-        "waypoint": ""
+        "waypoint": "[&BMIDAAA=]"
     },
     "Megadestructor": {
-        "waypoint": ""
+        "waypoint": "[&BM0CAAA=]"
     },
     "Elemental de fuego": {
-        "waypoint": ""
+        "waypoint": "[&BEcAAAA=]"
     },
     "El asolador": {
-        "waypoint": ""
+        "waypoint": "[&BE4DAAA=]"
     },
     "Modniir Ulgoth": {
-        "waypoint": ""
+        "waypoint": "[&BLAAAAA=]"
     },
     "Tormenta Dracónica": {
         "waypoint": ""
