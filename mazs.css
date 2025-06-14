@@ -238,6 +238,10 @@ div[data-template] {
 	font-size: small;
 }
 
+.event .tags .waypoint {
+    margin-left: auto;
+}
+
 .buttons {
 	display: flex;
 	flex-wrap: wrap;
