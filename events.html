@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Fractals</title>
+	<link rel="stylesheet" href="mazs.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<div id="achievement-template" style="display: none;">
+		<div class="achievement-container ::class::" data-fractalid="::fractal-id::">
+			<span class="toggle-unwanted ::class-unwanted::">::unwanted-text::</span>
+			<img ::icon:: class="icon">
+			<p class="title">::title::</p>
+			::bits::
+		</div>
+	</div>
+
+	<div class="the-father-of-containers">
+		<div class="container">
+			<div class="section">
+				<h3 class="section-title">Qué hacer <small>(eventos próximos)</small></h3>
+				<div class="event" style="background-color: ::color::;" data-template>
+					<div class="title">::nombre::</div>
+					<small class="timer">::hora:: (en ::timeleft:: minutos)</small>
+					<div class="tags">
+						<div class="tag expansion">::expansion::</div>
+						<div class="tag categoria">::categoria::</div>
+					</div>
+				</div>
+				<div class="lista-que-hacer"></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="metas.js"></script>
+	<script>
+		window.addEventListener('load', function(){
+			// Metas más próximos
+			const timeRange = 31;
+			mostrarQueHacer(timeRange)
+			setInterval(() => mostrarQueHacer(timeRange), 1000)
+		})
+	</script>
+</body>
+</html>
