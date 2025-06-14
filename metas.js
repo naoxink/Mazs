@@ -192,7 +192,7 @@ function mostrarQueHacer(offsetMinutos = 15) {
     const template = document.querySelector('div[data-template]').outerHTML.replace(' data-template', '')
     const htmlLista = proximosMetas.reduce((html, meta) => {
         const config = eventConfig[meta.evento] || {};
-        const waypoint = config.waypoint || "";
+        const waypoint = config.waypoint || ">.<";
         html += template
         .replace('::nombre::', meta.evento)
         .replace('::hora::', meta.hora)
