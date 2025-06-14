@@ -12,6 +12,8 @@ const metas = {
 			"Elemental de fuego": generarHorasCiclo('14:45', 120),
 			"El asolador": generarHorasCiclo('15:00', 180),
 			"Modniir Ulgoth": generarHorasCiclo('15:30', 180),
+            "Tequatl": ['18:00', '21:00', '02:00', '05:00', '09:00', '13:30'],
+            "Reina Karka": ['20:00', '01:00', '04:00', '08:00', '12:30', '17:00']
 		},
 		"Sangre y Hielo": {
 			"Tormenta Dracónica": generarHorasCiclo('15:00', 120),
@@ -122,6 +124,12 @@ const eventConfig = {
     "Convergencia: Monte Balrior": {
         "waypoint": "[&BK4OAAA=]"
     },
+    "Tequatl": {
+        "waypoint": "[&BNABAAA=]"
+    },
+    "Reina Karka": {
+        "waypoint": "[&BNUGAAA=]"
+    }
 }
 
 function generarHorasCiclo(inicio, intervaloMinutos) {
