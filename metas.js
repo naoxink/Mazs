@@ -223,6 +223,15 @@ document.addEventListener('click', async function (e) {
                 document.execCommand('copy')
                 document.body.removeChild(textarea)
             }
+            // Mostrar el toast flotante
+            const toast = document.getElementById('copiado-toast');
+            if (toast) {
+                toast.style.display = 'block';
+                clearTimeout(window._copiadoToastTimeout);
+                window._copiadoToastTimeout = setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 1000);
+            }
             break;
         }
         el = el.parentElement;
