@@ -7,7 +7,7 @@ const metas = {
 			"Garra de jormag": generarHorasCiclo('16:30', 180),
 			"Behemot de las sombras": generarHorasCiclo('13:45', 120),
 			"Almirante Taidha Covington": generarHorasCiclo('14:00', 180),
-			"Chamán Svanir": generarHorasCiclo('14:15', 160),
+			"Chamán Svanir": generarHorasCiclo('14:15', 120),
 			"Megadestructor": generarHorasCiclo('14:30', 180),
 			"Elemental de fuego": generarHorasCiclo('14:45', 120),
 			"El asolador": generarHorasCiclo('15:00', 180),
