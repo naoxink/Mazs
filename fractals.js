@@ -19,7 +19,7 @@ const fractalNamesUnic = [
 {"en":"Solid Ocean", "es":"Fractal del océano sólido", lvls: [20, 35, 44, 60, 80]},
 {"en":"Nightmare", "es":"Fractal de la Pesadilla", lvls: [22, 47, 72, 96]},
 {"en":"Shattered Observatory", "es":"Fractal del Observatorio Asolado", lvls: [23, 48, 73, 97]},
-{"en":"Sunqua Peak", "es":"Pico de Sunqua", lvls: [24, 49, 74, 98]},
+{"en":"Sunqua Peak", "es":"Fractal de Pico de Sunqua", lvls: [24, 49, 74, 98]},
 {"en":"Silent Surf", "es": "Oleaje silencioso", lvls: [21, 43, 66, 99]},
 {"en":"Lonely Tower", "es": "Torre solitaria", lvls: [25, 50, 75, 100]},
 {"en":"Kinfall", "es": "Hecatombe Allegada", lvls: [17, 38, 70, 95]}

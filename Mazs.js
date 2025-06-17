@@ -201,12 +201,6 @@
 		if(!_this.isRecommended(data)){
 			bits = mazs.formatBits(data.id, data.bitsByTier)
 		} else if (_this.isRecommended(data)) {
-			const wikiName = fractalList[data.bit]["name"][_this.lang]
-				.replace(/ /g, '_')            // espacios -> guiones bajos
-				.replace(/[?#<>:"{}|\\^~\[\]`]/g, '') // eliminar caracteres problemáticos
-				;
-			// 3. Construir URL
-			data.wikiLink = `https://wiki-${_this.lang}.guildwars2.com/wiki/${encodeURIComponent(wikiName)}?lang=${_this.lang}`
 			bits = "<small class='nameFractal'><a class='linkFractal' href='" + data.wikiLink + "' target='_blank'>" + fractalList[data.bit]["name"][_this.lang] + "</a> <span class='agony'>("+fractalList[data.bit]["ar"]+")</span></small>"
 		}
 		var html = this.achievementTemplate
@@ -233,12 +227,10 @@
 		Object.keys(data).forEach(function(key) {
 			let detailsFractal = {}
 			let bitsByTier = {}
-			const listFractals = fractalList
 			data[key].forEach(function(fractal){
 				detailsFractal.id = fractal.id
 				detailsFractal.icon = "https://render.guildwars2.com/file/4A5834E40CDC6A0C44085B1F697565002D71CD47/1228226.png"
 				detailsFractal.name = fractal.name
-				detailsFractal.wikiLink = fractal.wikiLink
 				for (var tier = 1; tier <= 4; tier++) {
 					if (+fractal.bit == tier) {
 						// Cogemos del array fractalList de fractals.js el siguiente que coincida con el nombre del tier correspondiente
@@ -254,6 +246,12 @@
 								else if (tier === 2 && key > 50) break;
 								else if (tier === 3 && key > 75) break;
 								numbersFractals.push({ lvl: key, ar: listFractals[key]["ar"] });
+								const wikiName = listFractals[key][_this.lang][details[i].name]
+									.replace(/ /g, '_')            // espacios -> guiones bajos
+									.replace(/[?#<>:"{}|\\^~\[\]`]/g, '') // eliminar caracteres problemáticos
+								;
+								// 3. Construir URL
+								fractal.wikiLink = `https://wiki-${_this.lang}.guildwars2.com/wiki/${encodeURIComponent(wikiName)}?lang=${_this.lang}`
 								detailsFractal.name = "<a class='linkFractal' href='" + fractal.wikiLink + "' target='_blank'>" + listFractals[key]["name"][_this.lang] + "</a>"
 							}
 						}
@@ -325,13 +323,6 @@
 					details[i].bit = details[i].name.replace(/\D/ig, '')
 					if(!_this.isRecommended(details[i])){
 						details[i].name = details[i].name.replace(_this.regexs[_this.lang], '').trim()
-						
-						const wikiName = details[i].name
-						.replace(/ /g, '_')            // espacios -> guiones bajos
-						.replace(/[?#<>:"{}|\\^~\[\]`]/g, '') // eliminar caracteres problemáticos
-						;
-						// 3. Construir URL
-						details[i].wikiLink = `https://wiki-${_this.lang}.guildwars2.com/wiki/${encodeURIComponent(wikiName)}?lang=${_this.lang}`
 
 						if (detailsFractals[details[i].name] === undefined) {
 							detailsFractals[details[i].name] = []
