@@ -248,7 +248,8 @@
 								numbersFractals.push({ lvl: key, ar: fractalList[key]["ar"] });
 								const wikiName = _this.wikiName(fractalList[key]['name'][_this.lang])
 								// 3. Construir URL
-								fractal.wikiLink = `https://wiki-${_this.lang}.guildwars2.com/wiki/${encodeURIComponent(wikiName)}?lang=${_this.lang}`
+								fractal.wikiLink = `/w/api.php?action=query&format=json&origin=*&list=search&srsearch=${encodeURIComponent(wikiName)}`
+								// fractal.wikiLink = `https://wiki-${_this.lang}.guildwars2.com/wiki/${encodeURIComponent(wikiName)}?lang=${_this.lang}`
 								detailsFractal.name = "<a class='linkFractal' href='" + fractal.wikiLink + "' target='_blank'>" + fractalList[key]["name"][_this.lang] + "</a>"
 							}
 						}
