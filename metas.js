@@ -208,7 +208,7 @@ function mostrarQueHacer(offsetMinutos = 15) {
         .replace('::categoria::', meta.categoria)
         .replace('::timeleft::', meta.en)
         .replace('::color::', `${meta.color}`)
-        .replace('::waypoint::', `<button data-code="${waypoint}">${waypoint}</button>`)
+        .replace('::waypoint::', `<button data-code="${waypoint}"><img src="https://wiki.guildwars2.com/images/thumb/d/d2/Waypoint_%28map_icon%29.png/20px-Waypoint_%28map_icon%29.png" alt="waypoint icon" style="width:16px; height:16px; vertical-align:middle; margin-right:4px;"></button>`)
         return html;
     }, '')
     document.querySelector('.lista-que-hacer').innerHTML = htmlLista
