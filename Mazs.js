@@ -201,12 +201,11 @@
 		if(!_this.isRecommended(data)){
 			bits = mazs.formatBits(data.id, data.bitsByTier)
 		} else if (_this.isRecommended(data)) {
-			console.log(data.name, data.wikiLink)
 			bits = "<small class='nameFractal'><a class='linkFractal' href='" + data.wikiLink + "' target='_blank'>" + fractalList[data.bit]["name"][_this.lang] + "</a> <span class='agony'>("+fractalList[data.bit]["ar"]+")</span></small>"
 		}
 		var html = this.achievementTemplate
 				.replace('::icon::', 'src="' + data.icon + '"')
-				.replace('::title::', data.name)
+				.replace('::title::', `<a href="${data.wikiLink}">${data.name}</a>`)
 				.replace('::bits::', bits)
 				.replace('::fractal-id::', data.id)
 		if(mazs.isUnwanted(data.id)){
