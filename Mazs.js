@@ -201,6 +201,9 @@
 		if(!_this.isRecommended(data)){
 			bits = mazs.formatBits(data.id, data.bitsByTier)
 		} else if (_this.isRecommended(data)) {
+			const wikiName = _this.wikiName(fractalList[data.bit]['name'][_this.lang])
+			// 3. Construir URL
+			data.wikiLink = `https://wiki-${_this.lang}.guildwars2.com/index.php?title=Especial%3ABuscar&search=${encodeURIComponent(wikiName)}&go=Ir&ns0=1`
 			bits = "<small class='nameFractal'><a class='linkFractal' href='" + data.wikiLink + "' target='_blank'>" + fractalList[data.bit]["name"][_this.lang] + "</a> <span class='agony'>("+fractalList[data.bit]["ar"]+")</span></small>"
 		}
 		var html = this.achievementTemplate
@@ -248,7 +251,6 @@
 								numbersFractals.push({ lvl: key, ar: fractalList[key]["ar"] });
 								const wikiName = _this.wikiName(fractalList[key]['name'][_this.lang])
 								// 3. Construir URL
-								// https://wiki-es.guildwars2.com/index.php?title=Especial%3ABuscar&search=rocahonda&go=Ir&ns0=1
 								fractal.wikiLink = `https://wiki-${_this.lang}.guildwars2.com/index.php?title=Especial%3ABuscar&search=${encodeURIComponent(wikiName)}&go=Ir&ns0=1`
 								detailsFractal.name = "<a class='linkFractal' href='" + fractal.wikiLink + "' target='_blank'>" + fractalList[key]["name"][_this.lang] + "</a>"
 							}
