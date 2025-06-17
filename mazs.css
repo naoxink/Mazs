@@ -270,10 +270,9 @@ div[data-template] {
 
 .waypoint > button {
 	border: 1px solid transparent;
-	background-color: #169bca;
 	color: white;
 }
 
 .waypoint > button:hover {
-	background-color: #117aa0;
+	color: rgb(255, 251, 212);
 }
