@@ -40,6 +40,11 @@
 			// Metas más próximos
 			const timeRange = 120;
 			mostrarQueHacer(timeRange)
+			const params = new URLSearchParams(window.location.search);
+			if (params.has('static')) {
+				// No hacer el interval si existe 'static'
+				return;
+			}
 			setInterval(() => mostrarQueHacer(timeRange), 1000)
 		})
 	</script>
