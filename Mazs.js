@@ -240,13 +240,13 @@
 						}
 						let numbersFractals = []
 						let re = new RegExp(fractal.name.toUpperCase());
-						for (let key in listFractals) {
-							if (re.test(listFractals[key]["name"][_this.lang].toUpperCase())) {
+						for (let key in fractalList) {
+							if (re.test(fractalList[key]["name"][_this.lang].toUpperCase())) {
 								if (tier === 1 && key > 25) break;
 								else if (tier === 2 && key > 50) break;
 								else if (tier === 3 && key > 75) break;
-								numbersFractals.push({ lvl: key, ar: listFractals[key]["ar"] });
-								const wikiName = listFractals[key]['name'][_this.lang]
+								numbersFractals.push({ lvl: key, ar: fractalList[key]["ar"] });
+								const wikiName = fractalList[key]['name'][_this.lang]
 									.replace(/ /g, '_')            // espacios -> guiones bajos
 									.replace(/[?#<>:"{}|\\^~\[\]`]/g, '') // eliminar caracteres problemáticos
 								;
