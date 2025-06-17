@@ -246,10 +246,7 @@
 								else if (tier === 2 && key > 50) break;
 								else if (tier === 3 && key > 75) break;
 								numbersFractals.push({ lvl: key, ar: fractalList[key]["ar"] });
-								const wikiName = fractalList[key]['name'][_this.lang]
-									.replace(/ /g, '_')            // espacios -> guiones bajos
-									.replace(/[?#<>:"{}|\\^~\[\]`]/g, '') // eliminar caracteres problemáticos
-								;
+								const wikiName = _this.wikiName(fractalList[key]['name'][_this.lang])
 								// 3. Construir URL
 								fractal.wikiLink = `https://wiki-${_this.lang}.guildwars2.com/wiki/${encodeURIComponent(wikiName)}?lang=${_this.lang}`
 								detailsFractal.name = "<a class='linkFractal' href='" + fractal.wikiLink + "' target='_blank'>" + fractalList[key]["name"][_this.lang] + "</a>"
@@ -263,6 +260,13 @@
 			detailsFractal['bitsByTier'] = bitsByTier
 			_this.print('#' + typeFractal + '-tiers', detailsFractal)
 		})
+	}
+
+	mazs.wikiName = function(name) {
+		return name
+			.replace(/ /g, '_')            // espacios -> guiones bajos
+			.replace(/[?#<>:"{}|\\^~\[\]`]/g, '') // eliminar caracteres problemáticos
+			.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('_')
 	}
 
 	// Comprueba que un fractal es tier máximo (4)
