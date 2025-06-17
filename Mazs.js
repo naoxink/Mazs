@@ -246,7 +246,7 @@
 								else if (tier === 2 && key > 50) break;
 								else if (tier === 3 && key > 75) break;
 								numbersFractals.push({ lvl: key, ar: listFractals[key]["ar"] });
-								const wikiName = listFractals[key][_this.lang][details[i].name]
+								const wikiName = listFractals[key]['name'][_this.lang]
 									.replace(/ /g, '_')            // espacios -> guiones bajos
 									.replace(/[?#<>:"{}|\\^~\[\]`]/g, '') // eliminar caracteres problemáticos
 								;
