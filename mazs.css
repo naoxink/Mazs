@@ -279,3 +279,8 @@ div[data-template] {
 	color: rgb(255, 251, 212);
 	cursor: pointer;
 }
+
+.waypoint > button:active,
+.waypoint > button.pressed {
+  transform: translateY(2px) scale(0.97);
+}
