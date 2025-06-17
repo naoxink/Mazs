@@ -232,6 +232,7 @@
 				detailsFractal.id = fractal.id
 				detailsFractal.icon = "https://render.guildwars2.com/file/4A5834E40CDC6A0C44085B1F697565002D71CD47/1228226.png"
 				detailsFractal.name = fractal.name
+				detailsFractal.wikiLink = fractal.wikiLink
 				for (var tier = 1; tier <= 4; tier++) {
 					if (+fractal.bit == tier) {
 						// Cogemos del array fractalList de fractals.js el siguiente que coincida con el nombre del tier correspondiente
