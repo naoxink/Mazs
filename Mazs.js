@@ -313,6 +313,7 @@
 				document.querySelector('#fractal-recommended').innerHTML = '<h3 class="section-title">' + _this.headers.fractalRecommended[_this.lang] + '</h3>'
 				
 				detailsFractals = []
+				recs = []
 				for (var i = 0, len = details.length; i < len; i++) {
 					details[i].bit = details[i].name.replace(/\D/ig, '')
 					if(!_this.isRecommended(details[i])){
@@ -324,10 +325,16 @@
 						detailsFractals[details[i].name].push(details[i])
 						//_this.print('#fractal-tiers', details[i])
 					}else if(_this.isRecommended(details[i])){
-						_this.print('#fractal-recommended', details[i])
+						recs.push(details[i]);
 					}
 				}
 				_this.printGroup(detailsFractals, "fractal")
+				recs.sort((a, b) => {
+					const numA = parseInt(a.name.match(/\d+/)?.[0] || '0', 10)
+					const numB = parseInt(b.name.match(/\d+/)?.[0] || '0', 10)
+					return numA - numB
+				})
+				recs.forEach(detail => _this.print('#fractal-recommended', detail))
 
 				return callback.call(_this, details)
 			})
