@@ -205,7 +205,7 @@
 		}
 		var html = this.achievementTemplate
 				.replace('::icon::', 'src="' + data.icon + '"')
-				.replace('::title::', `<a href="${data.wikiLink}">${data.name}</a>`)
+				.replace('::title::', data.name)
 				.replace('::bits::', bits)
 				.replace('::fractal-id::', data.id)
 		if(mazs.isUnwanted(data.id)){
@@ -248,7 +248,7 @@
 								else if (tier === 2 && key > 50) break;
 								else if (tier === 3 && key > 75) break;
 								numbersFractals.push({ lvl: key, ar: listFractals[key]["ar"] });
-								detailsFractal.name = "<a class='linkFractal' href='" + listFractals[key]["name"]["url"] + "' target='_blank'>" + listFractals[key]["name"][_this.lang] + "</a>"
+								detailsFractal.name = "<a class='linkFractal' href='" + wikiLink + "' target='_blank'>" + listFractals[key]["name"][_this.lang] + "</a>"
 							}
 						}
 
