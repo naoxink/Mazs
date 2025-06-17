@@ -201,6 +201,12 @@
 		if(!_this.isRecommended(data)){
 			bits = mazs.formatBits(data.id, data.bitsByTier)
 		} else if (_this.isRecommended(data)) {
+			const wikiName = fractalList[data.bit]["name"][_this.lang]
+				.replace(/ /g, '_')            // espacios -> guiones bajos
+				.replace(/[?#<>:"{}|\\^~\[\]`]/g, '') // eliminar caracteres problemáticos
+				;
+			// 3. Construir URL
+			data.wikiLink = `https://wiki-${_this.lang}.guildwars2.com/wiki/${encodeURIComponent(wikiName)}?lang=${_this.lang}`
 			bits = "<small class='nameFractal'><a class='linkFractal' href='" + data.wikiLink + "' target='_blank'>" + fractalList[data.bit]["name"][_this.lang] + "</a> <span class='agony'>("+fractalList[data.bit]["ar"]+")</span></small>"
 		}
 		var html = this.achievementTemplate
@@ -317,15 +323,16 @@
 				recs = []
 				for (var i = 0, len = details.length; i < len; i++) {
 					details[i].bit = details[i].name.replace(/\D/ig, '')
-					const wikiName = details[i].name
-						.replace(/ /g, '_')            // espacios -> guiones bajos
-						.replace(/[?#<>:"{}|\\^~\[\]`]/g, '') // eliminar caracteres problemáticos
-						;
-					// 3. Construir URL
-					details[i].wikiLink = `https://wiki-${_this.lang}.guildwars2.com/wiki/${encodeURIComponent(wikiName)}?lang=${_this.lang}`
 					if(!_this.isRecommended(details[i])){
 						details[i].name = details[i].name.replace(_this.regexs[_this.lang], '').trim()
 						
+						const wikiName = details[i].name
+						.replace(/ /g, '_')            // espacios -> guiones bajos
+						.replace(/[?#<>:"{}|\\^~\[\]`]/g, '') // eliminar caracteres problemáticos
+						;
+						// 3. Construir URL
+						details[i].wikiLink = `https://wiki-${_this.lang}.guildwars2.com/wiki/${encodeURIComponent(wikiName)}?lang=${_this.lang}`
+
 						if (detailsFractals[details[i].name] === undefined) {
 							detailsFractals[details[i].name] = []
 						}
