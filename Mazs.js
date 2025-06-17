@@ -248,7 +248,7 @@
 								else if (tier === 2 && key > 50) break;
 								else if (tier === 3 && key > 75) break;
 								numbersFractals.push({ lvl: key, ar: listFractals[key]["ar"] });
-								detailsFractal.name = "<a class='linkFractal' href='" + wikiLink + "' target='_blank'>" + listFractals[key]["name"][_this.lang] + "</a>"
+								detailsFractal.name = "<a class='linkFractal' href='" + fractal.wikiLink + "' target='_blank'>" + listFractals[key]["name"][_this.lang] + "</a>"
 							}
 						}
 
