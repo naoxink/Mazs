@@ -322,7 +322,7 @@
 						.replace(/[?#<>:"{}|\\^~\[\]`]/g, '') // eliminar caracteres problemáticos
 						;
 					// 3. Construir URL
-					details[i].wikiLink = `https://wiki.guildwars2.com/wiki/${encodeURIComponent(wikiName)}?lang=${_this.lang}`
+					details[i].wikiLink = `https://wiki-${_this.lang}.guildwars2.com/wiki/${encodeURIComponent(wikiName)}?lang=${_this.lang}`
 					if(!_this.isRecommended(details[i])){
 						details[i].name = details[i].name.replace(_this.regexs[_this.lang], '').trim()
 						
