@@ -48,7 +48,13 @@ const metas = {
 			"Un viaje titánico": generarHorasCiclo('15:20', 120),
 			"Convergencia: Monte Balrior": generarHorasCiclo('14:00', 180)
 		}
-	}
+	},
+    "Visions of Eternity": {
+        "Castora": {
+            "¡Reyerta de los Venadoasolador!": generarHorasCiclo('13:40', 120),
+            "Secretos del bosquezuelo": generarHorasCiclo('14:40', 120)
+        }
+    }
 }
 
 const eventConfig = {
