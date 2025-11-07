@@ -135,6 +135,12 @@ const eventConfig = {
     },
     "Reina Karka": {
         "waypoint": "[&BNUGAAA=]"
+    },
+    "¡Reyerta de los Venadoasolador!": {
+        "waypoint": "[&BJEPAAA=]"
+    },
+    "Secretos del bosquezuelo": {
+        "waypoint": "[&BJ4PAAA=]"
     }
 }
 
