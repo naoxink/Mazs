@@ -232,11 +232,37 @@ div[data-template] {
 
 .event .tags .tag {
 	margin-left: 5px;
-	padding: 2px 5px;
+	/* padding: 2px 5px; */
 	border: 1px solid rgba(0, 0, 0, .1);
 	background-color: rgba(255, 255, 255, .8);
 	font-size: small;
 }
+
+.tag button.filter-tag {
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	font-size: inherit;
+	/* padding: 0; */
+	padding: 2px 5px;
+	margin: 0;
+}
+
+.filter-tag {
+	display:inline-block;
+	margin:0 6px 6px 0;
+	padding:4px 8px;
+	background: #f0f0f0;
+	cursor:pointer;
+	font-size:0.9rem;
+}
+.filter-tag.active,
+.filter-tag[aria-pressed="true"] {
+	background: linear-gradient(180deg,#ffd27a,#ffb347);
+	box-shadow: 0 1px 0 rgba(0,0,0,0.05) inset;
+}
+.filter-tag.expansion { font-weight:600; }
+.filter-tag.category { opacity:0.95; }
 
 .event .tags .waypoint {
     margin-left: auto;

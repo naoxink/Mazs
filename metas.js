@@ -144,6 +144,15 @@ const eventConfig = {
     }
 }
 
+// Estado de filtros activo (null = ninguno)
+const activeFilters = {
+  expansion: null,
+  category: null
+}
+
+// guarda el último offset usado para re-render cuando se hace toggle en filtros
+let lastOffsetMinutos = 15;
+
 function generarHorasCiclo(inicio, intervaloMinutos) {
   const resultado = [];
   const [hInicio, mInicio] = inicio.split(':').map(Number);
@@ -170,13 +179,19 @@ function calcularColorFondo(en, max = 16, min = 0) {
     return `rgb(${r},${g},${b})`;
 }
 
-function metasProximos(metas, rangoMin = 15) {
+function metasProximos(metas, rangoMin = 15, filters = {}) {
     const ahora = new Date();
     const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
     const eventosCercanos = [];
 
     for (const expansion in metas) {
+        // si hay filtro de expansion y no coincide, saltar
+        if (filters.expansion && filters.expansion !== expansion) continue;
+
         for (const categoria in metas[expansion]) {
+            // si hay filtro de categoria y no coincide, saltar
+            if (filters.category && filters.category !== categoria) continue;
+
             for (const evento in metas[expansion][categoria]) {
                 const horas = metas[expansion][categoria][evento];
                 for (const hora of horas) {
@@ -204,20 +219,48 @@ function metasProximos(metas, rangoMin = 15) {
     return eventosCercanos;
 }
 
-function mostrarQueHacer(offsetMinutos = 15) {
-    let proximosMetas = metasProximos(metas, offsetMinutos)
-	while (proximosMetas.length < 5) {
-		proximosMetas = metasProximos(metas, offsetMinutos + 15)
-	}
+function mostrarQueHacer(offsetMinutos = lastOffsetMinutos) {
+    // guarda el offset usado
+    // lastOffsetMinutos = offsetMinutos;  // moved below
+
+    // intentaremos ampliar el rango si no hay suficientes metas,
+    // pero evitando bucle infinito: incrementamos el offset y limitamos intentos.
+    let currentOffset = offsetMinutos;
+    const incremento = 15;
+    const maxAttempts = 8; // máximo +120 minutos en total
+    let attempts = 0;
+
+    let proximosMetas = metasProximos(metas, currentOffset, activeFilters);
+    while (proximosMetas.length < 5 && attempts < maxAttempts) {
+        attempts++;
+        currentOffset += incremento;
+        proximosMetas = metasProximos(metas, currentOffset, activeFilters);
+        // si los filtros hacen que no haya ningún evento posible en todo el dataset,
+        // evitamos seguir intentando (rompe el bucle)
+        if (proximosMetas.length === 0 && attempts === maxAttempts) break;
+    }
+
+    // guarda el último offset realmente usado para re-renders posteriores
+    lastOffsetMinutos = currentOffset;
+
     const template = document.querySelector('div[data-template]').outerHTML.replace(' data-template', '')
     const htmlLista = proximosMetas.reduce((html, meta) => {
         const config = eventConfig[meta.evento] || {};
         const waypoint = config.waypoint || "";
+
+        // clases para indicar tag activo
+        const expActiveClass = activeFilters.expansion === meta.expansion ? 'active' : '';
+        const catActiveClass = activeFilters.category === meta.categoria ? 'active' : '';
+
+        // renderiza tags clicables para expansion y categoria
+        const expansionTag = `<button type="button" class="filter-tag expansion ${expActiveClass}" aria-pressed="${expActiveClass ? 'true' : 'false'}" data-filter-type="expansion" data-filter-value="${meta.expansion}">${meta.expansion}</button>`;
+        const categoryTag = `<button type="button" class="filter-tag category ${catActiveClass}" aria-pressed="${catActiveClass ? 'true' : 'false'}" data-filter-type="category" data-filter-value="${meta.categoria}">${meta.categoria}</button>`;
+
         html += template
         .replace('::nombre::', meta.evento)
         .replace('::hora::', meta.hora)
-        .replace('::expansion::', meta.expansion)
-        .replace('::categoria::', meta.categoria)
+        .replace('::expansion::', expansionTag)
+        .replace('::categoria::', categoryTag)
         .replace('::timeleft::', meta.en)
         .replace('::color::', `${meta.color}`)
         .replace('::waypoint::', `<button data-code="${waypoint}"><img src="https://wiki.guildwars2.com/images/thumb/d/d2/Waypoint_%28map_icon%29.png/20px-Waypoint_%28map_icon%29.png" alt="waypoint icon" style="width:16px; height:16px; vertical-align:middle; margin-right:4px;">${waypoint}</button>`)
@@ -229,6 +272,20 @@ function mostrarQueHacer(offsetMinutos = 15) {
 document.addEventListener('click', async function (e) {
     let el = e.target;
     while (el && el !== document) {
+        // Manejo de tags de filtro (expansion / category)
+        if (el.hasAttribute('data-filter-type')) {
+            const type = el.getAttribute('data-filter-type') // "expansion" | "category"
+            const value = el.getAttribute('data-filter-value')
+            // toggle: si ya está activo, desactivar; si no, activar
+            if (activeFilters[type] === value) {
+                activeFilters[type] = null
+            } else {
+                activeFilters[type] = value
+            }
+            mostrarQueHacer(lastOffsetMinutos) // re-render con filtros actualizados
+            break;
+        }
+
         if (el.hasAttribute('data-code')) {
             const text = el.getAttribute('data-code')
             try {
